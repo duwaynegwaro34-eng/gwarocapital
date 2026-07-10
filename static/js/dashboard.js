@@ -28,7 +28,7 @@ async function updateDashboard(){
 
         if(document.getElementById("bot-status"))
             document.getElementById("bot-status").innerHTML =
-            data.status;
+            data.bot_running ? "Running" : "Stopped";
 
     }
 

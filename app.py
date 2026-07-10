@@ -1,10 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify, session, flash
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy.exc import IntegrityError
 try:
     import MetaTrader5 as mt5
 except ImportError:
     mt5 = None
-# import bot
+import bot as trading_bot
 import threading
 import time
 
@@ -12,11 +15,15 @@ app = Flask(__name__)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///gwaro.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SECRET_KEY"] = "gwaro-capital-secret-key"
 
 db = SQLAlchemy(app)
+login_manager = LoginManager(app)
+login_manager.login_view = "login"
+login_manager.login_message = "Please log in to access your dashboard."
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     username = db.Column(db.String(100), nullable=False)
@@ -30,10 +37,34 @@ class User(db.Model):
 
 
 bot_running = False
+bot_thread = None
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
+def verify_password(stored_password, provided_password):
+    if not stored_password:
+        return False
+    if stored_password.startswith("pbkdf2"):
+        try:
+            return check_password_hash(stored_password, provided_password)
+        except ValueError:
+            return False
+    return stored_password == provided_password
+
+
+def get_current_user():
+    return current_user if current_user.is_authenticated else None
 
 
 def get_market_data():
     data = []
+
+    if mt5 is None:
+        return data
 
     if mt5.initialize():
 
@@ -64,6 +95,9 @@ def get_market_data():
 def generate_signals():
 
     signals = []
+
+    if mt5 is None:
+        return signals
 
     if mt5.initialize():
 
@@ -108,6 +142,12 @@ def home():
 @app.route("/positions")
 def positions():
 
+    if mt5 is None:
+        return jsonify([])
+
+    if not mt5.initialize():
+        return jsonify([])
+
     positions = mt5.positions_get()
 
     data=[]
@@ -127,6 +167,8 @@ def positions():
                 "profit":round(p.profit,2)
 
             })
+
+    mt5.shutdown()
 
     return jsonify(data)
 
@@ -176,40 +218,63 @@ def bot_status():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for("dashboard"))
 
     if request.method == "POST":
 
-        email = request.form["email"]
-        password = request.form["password"]
+        email = request.form.get("email", "").strip().lower()
+        password = request.form.get("password", "")
 
-        user = User.query.filter_by(
-            email=email,
-            password=password
-        ).first()
+        user = User.query.filter_by(email=email).first()
 
-        if user:
+        if user and verify_password(user.password, password):
+            login_user(user)
+            flash("Welcome back!", "success")
             return redirect(url_for("dashboard"))
+
+        flash("Invalid email or password.", "error")
 
     return render_template("login.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for("dashboard"))
 
     if request.method == "POST":
 
+        email = request.form.get("email", "").strip().lower()
+        if User.query.filter_by(email=email).first():
+            flash("Email already exists. Please use another email address.", "error")
+            return render_template("register.html")
+
         user = User(
-            username=request.form["username"],
-            email=request.form["email"],
-            password=request.form["password"]
+            username=request.form.get("username", "").strip(),
+            email=email,
+            password=generate_password_hash(request.form.get("password", ""))
         )
 
-        db.session.add(user)
-        db.session.commit()
+        try:
+            db.session.add(user)
+            db.session.commit()
+        except IntegrityError:
+            db.session.rollback()
+            flash("Email already exists. Please use another email address.", "error")
+            return render_template("register.html")
 
+        flash("Account created successfully. Please log in.", "success")
         return redirect(url_for("login"))
 
     return render_template("register.html")
+
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    flash("You have been logged out.", "info")
+    return redirect(url_for("login"))
 
 
 @app.route("/mt5", methods=["GET", "POST"])
@@ -233,6 +298,9 @@ def mt5_page():
     return render_template("mt5.html")
 @app.route("/test_mt5")
 def test_mt5():
+
+    if mt5 is None:
+        return "❌ MetaTrader 5 is not installed."
 
     if not mt5.initialize():
         return "❌ Failed to connect to MetaTrader 5."
@@ -258,14 +326,53 @@ def test_mt5():
     return data
 
 
-@app.route("/dashboard")
-def dashboard():
-
-    user = User.query.first()
+@app.route("/market_data")
+def market_data():
 
     mt5_data = None
 
-    if mt5.initialize():
+    if mt5 is not None and mt5.initialize():
+
+        account = mt5.account_info()
+
+        if account:
+
+            mt5_data = {
+                "status": "Connected",
+                "account": account.login,
+                "server": account.server,
+                "balance": account.balance,
+                "equity": account.equity,
+                "profit": account.profit,
+                "margin": account.margin_free
+            }
+
+        mt5.shutdown()
+
+    market = get_market_data()
+    signals = generate_signals()
+
+    return jsonify({
+        "status": mt5_data["status"] if mt5_data else "Offline",
+        "balance": mt5_data["balance"] if mt5_data else 0,
+        "equity": mt5_data["equity"] if mt5_data else 0,
+        "profit": mt5_data["profit"] if mt5_data else 0,
+        "margin": mt5_data["margin"] if mt5_data else 0,
+        "markets": market,
+        "signals": signals,
+        "bot_running": bot_running
+    })
+
+
+@app.route("/dashboard")
+@login_required
+def dashboard():
+
+    user = get_current_user()
+
+    mt5_data = None
+
+    if mt5 is not None and mt5.initialize():
 
         account = mt5.account_info()
 
@@ -297,6 +404,7 @@ def dashboard():
 
 
 @app.route("/start_bot")
+@login_required
 def start_bot():
 
     global bot_running
@@ -305,18 +413,19 @@ def start_bot():
     if not bot_running:
         bot_running = True
 
-        bot_thread = threading.Thread(target=bot.start)
-        bot_thread.daemon = True
+        bot_thread = threading.Thread(target=trading_bot.start, daemon=True)
         bot_thread.start()
 
     return redirect(url_for("dashboard"))
 
 @app.route("/stop_bot")
+@login_required
 def stop_bot():
 
     global bot_running
 
     bot_running = False
+    trading_bot.stop()
 
     return redirect(url_for("dashboard"))
 

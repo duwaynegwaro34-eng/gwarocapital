@@ -1,647 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Gwaro Capital</title>
-
-<link rel="stylesheet"
-href="{{ url_for('static', filename='css/dashboard.css') }}">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-rel="stylesheet">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gwaro Capital | Trading Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
-
 <body>
-
-<div class="sidebar">
-
-<div class="logo">
-
-<h1>GWARO</h1>
-
-<span>CAPITAL</span>
-
-</div>
-
-<ul>
-
-<li class="active">
-
-<i class="fas fa-chart-line"></i>
-
-Dashboard
-
-</li>
-
-<li>
-
-<i class="fas fa-robot"></i>
-
-Trading Bot
-
-</li>
-
-<li>
-
-<i class="fas fa-chart-candlestick"></i>
-
-Live Markets
-
-</li>
-
-<li>
-
-<i class="fas fa-brain"></i>
-
-AI Signals
-
-</li>
-
-<li>
-
-<i class="fas fa-wallet"></i>
-
-MT5
-
-</li>
-
-<li>
-
-<i class="fas fa-clock-rotate-left"></i>
-
-History
-
-</li>
-
-<li>
-
-<i class="fas fa-gear"></i>
-
-Settings
-
-</li>
-
-<li>
-
-<i class="fas fa-right-from-bracket"></i>
-
-Logout
-
-</li>
-
-</ul>
-
-</div>
-
-<div class="main">
-
-<header>
-<div class="hero">
-
-<div class="hero-left">
-
-<h1>Institutional AI Trading Platform</h1>
-
-<p>Trade smarter with Gwaro Capital AI.</p>
-
-</div>
-
-<div class="quick-stats">
-
-<div class="stat">
-
-<i class="fas fa-bolt"></i>
-
-<h2 id="win-rate">96%</h2>
-
-<p>Win Rate</p>
-
-</div>
-
-<div class="stat">
-
-<i class="fas fa-crosshairs"></i>
-
-<h2 id="rr">1:3</h2>
-
-<p>Risk Reward</p>
-
-</div>
-
-<div class="stat">
-
-<i class="fas fa-chart-line"></i>
-
-<h2 id="trades-today">0</h2>
-
-<p>Trades Today</p>
-
-</div>
-
-<div class="stat">
-
-<i class="fas fa-brain"></i>
-
-<h2 id="confidence">94%</h2>
-
-<p>AI Confidence</p>
-
-</div>
-
-</div>
-
-<div class="hero-right">
-
-<div class="hero-card">
-
-<h3>Today's Profit</h3>
-
-<h1 id="today-profit">$0.00</h1>
-
-</div>
-
-<div class="hero-card">
-
-<h3>Open Trades</h3>
-
-<h1 id="open-trades">0</h1>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="ticker">
-
-    <div class="ticker-track">
-
-        <span>🟡 XAUUSD <strong id="gold-price">Loading...</strong></span>
-
-        <span>🔵 EURUSD <strong id="eurusd-price">Loading...</strong></span>
-
-        <span>🟢 GBPUSD <strong id="gbpusd-price">Loading...</strong></span>
-
-        <span>🟠 BTCUSD <strong id="btc-price">Loading...</strong></span>
-
-        <span>🟣 NAS100 <strong id="nas-price">Loading...</strong></span>
-
-    </div>
-
-</div>
-
-<div>
-
-<h2>
-
-Welcome Back 👋
-
-</h2>
-
-<p>
-
-Institutional AI Trading Platform
-
-</p>
-
-</div>
-
-<div class="top-status">
-
-<div class="status-circle"></div>
-
-<span id="status">
-
-Running
-
-</span>
-
-</div>
-
-</header>
-<div class="cards">
-
-    <div class="card">
-
-        <div class="icon blue">
-
-            <i class="fas fa-wallet"></i>
-
-        </div>
-
-        <div>
-
-            <p>Balance</p>
-
-            <h2 id="balance">
-
-                ${{ mt5.balance if mt5 else "0.00" }}
-
-            </h2>
-
-        </div>
-
-    </div>
-
-    <div class="card">
-
-        <div class="icon green">
-
-            <i class="fas fa-chart-line"></i>
-
-        </div>
-
-        <div>
-
-            <p>Equity</p>
-
-            <h2 id="equity">
-
-                ${{ mt5.equity if mt5 else "0.00" }}
-
-            </h2>
-
-        </div>
-
-    </div>
-
-    <div class="card">
-
-        <div class="icon orange">
-
-            <i class="fas fa-coins"></i>
-
-        </div>
-
-        <div>
-
-            <p>Profit</p>
-
-            <h2 id="profit">
-
-                ${{ mt5.profit if mt5 else "0.00" }}
-
-            </h2>
-
-        </div>
-
-    </div>
-
-    <div class="card">
-
-        <div class="icon purple">
-
-            <i class="fas fa-robot"></i>
-
-        </div>
-
-        <div>
-
-            <p>Bot Status</p>
-
-            <h2 id="bot-status">
-
-                {% if bot_running %}
-                Running
-                {% else %}
-                Stopped
-                {% endif %}
-
-            </h2>
-
-        </div>
-
-    </div>
-
-</div>
-
-<section class="hero-chart">
-
-<div class="glass-panel">
-
-<h2>
-
-<i class="fas fa-chart-line"></i>
-
-Live Trading Terminal
-
-</h2>
-
-<div id="tradingview_chart"></div>
-
-</div>
-
-</section>
-
-<div class="cards">
-
-
-<div class="left-column">
-
-<div class="panel">
-
-<h2>
-
-<i class="fas fa-play-circle"></i>
-
-Trading Controls
-
-</h2>
-
-<div class="buttons">
-
-<a href="/start_bot" class="start-btn">
-
-<i class="fas fa-play"></i>
-
-START BOT
-
-</a>
-
-<a href="/stop_bot" class="stop-btn">
-
-<i class="fas fa-stop"></i>
-
-STOP BOT
-
-</a>
-
-</div>
-
-</div>
-<div class="panel">
-
-    <h2>
-
-        <i class="fas fa-brain"></i>
-
-        AI Trading Signals
-
-    </h2>
-
-    <div id="signals">
-
-        {% for signal in signals %}
-
-        <div class="signal">
-
-            <div class="signal-header">
-
-                <h3>{{ signal.symbol }}</h3>
-
-                {% if signal.signal == "BUY" %}
-
-                <span class="buy">
-
-                    BUY
-
-                </span>
-
-                {% else %}
-
-                <span class="sell">
-
-                    SELL
-
-                </span>
-
-                {% endif %}
-
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div class="brand">
+                <h1>GWARO</h1>
+                <span>CAPITAL</span>
             </div>
 
-            <div class="signal-info">
+            <ul class="nav-links">
+                <li class="active"><i class="fas fa-chart-line"></i> Dashboard</li>
+                <li><i class="fas fa-robot"></i> Bot Control</li>
+                <li><i class="fas fa-chart-candlestick"></i> Markets</li>
+                <li><i class="fas fa-brain"></i> AI Signals</li>
+                <li><i class="fas fa-wallet"></i> MT5</li>
+                <li><i class="fas fa-clock-rotate-left"></i> History</li>
+                <li><i class="fas fa-gear"></i> Settings</li>
+                <li><a href="/logout"><i class="fas fa-right-from-bracket"></i> Logout</a></li>
+            </ul>
+        </aside>
 
-                <p><strong>Entry:</strong> {{ signal.entry }}</p>
+        <main class="main-panel">
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">Institutional Trading Platform</p>
+                    <h2>Welcome back, {{ user.username if user else 'Trader' }}</h2>
+                </div>
+                <div class="topbar-status">
+                    <span class="status-dot"></span>
+                    <span id="status">{{ mt5.status if mt5 else 'Offline' }}</span>
+                </div>
+            </header>
 
-                <p><strong>SL:</strong> {{ signal.sl }}</p>
+            <section class="hero-strip">
+                <div class="hero-copy">
+                    <h3>Professional execution for modern markets</h3>
+                    <p>Monitor MT5 activity, manage your bot, and review AI-driven signals in a single workspace.</p>
+                </div>
+                <div class="hero-pill">AI Confidence 94%</div>
+            </section>
 
-                <p><strong>TP:</strong> {{ signal.tp }}</p>
+            <section class="stats-grid">
+                <article class="stat-card">
+                    <div class="icon blue"><i class="fas fa-wallet"></i></div>
+                    <div>
+                        <p>Balance</p>
+                        <h3 id="balance">${{ "%.2f"|format(mt5.balance) if mt5 else '0.00' }}</h3>
+                    </div>
+                </article>
+                <article class="stat-card">
+                    <div class="icon green"><i class="fas fa-chart-line"></i></div>
+                    <div>
+                        <p>Equity</p>
+                        <h3 id="equity">${{ "%.2f"|format(mt5.equity) if mt5 else '0.00' }}</h3>
+                    </div>
+                </article>
+                <article class="stat-card">
+                    <div class="icon orange"><i class="fas fa-coins"></i></div>
+                    <div>
+                        <p>Profit</p>
+                        <h3 id="profit">${{ "%.2f"|format(mt5.profit) if mt5 else '0.00' }}</h3>
+                    </div>
+                </article>
+                <article class="stat-card">
+                    <div class="icon purple"><i class="fas fa-robot"></i></div>
+                    <div>
+                        <p>Bot Status</p>
+                        <h3 id="bot-status">{% if bot_running %}Running{% else %}Stopped{% endif %}</h3>
+                    </div>
+                </article>
+            </section>
 
-                <p><strong>Confidence:</strong> {{ signal.confidence }}%</p>
+            <section class="content-grid">
+                <div class="panel wide-panel">
+                    <div class="panel-heading">
+                        <h3><i class="fas fa-chart-line"></i> Live Market Overview</h3>
+                        <span class="panel-badge">Realtime</span>
+                    </div>
+                    <div class="market-ticker">
+                        <span>🟡 XAUUSD <strong id="gold-price">Loading...</strong></span>
+                        <span>🔵 EURUSD <strong id="eurusd-price">Loading...</strong></span>
+                        <span>🟢 GBPUSD <strong id="gbpusd-price">Loading...</strong></span>
+                        <span>🟠 BTCUSD <strong id="btc-price">Loading...</strong></span>
+                        <span>🟣 NAS100 <strong id="nas-price">Loading...</strong></span>
+                    </div>
+                    <div id="tradingview_chart" class="chart-area"></div>
+                </div>
 
-            </div>
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3><i class="fas fa-play-circle"></i> Trading Controls</h3>
+                    </div>
+                    <div class="button-stack">
+                        <a href="/start_bot" class="cta-btn start">Start Bot</a>
+                        <a href="/stop_bot" class="cta-btn stop">Stop Bot</a>
+                    </div>
+                    <div class="mini-card">
+                        <p>MT5 Connection</p>
+                        <h4>{% if mt5 %}Connected{% else %}Offline{% endif %}</h4>
+                    </div>
+                </div>
 
-        </div>
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3><i class="fas fa-brain"></i> AI Signals</h3>
+                    </div>
+                    <div id="signals" class="signal-list">
+                        {% for signal in signals %}
+                        <div class="signal-item">
+                            <div class="signal-row">
+                                <strong>{{ signal.symbol }}</strong>
+                                <span class="signal-pill {{ signal.signal.lower() }}">{{ signal.signal }}</span>
+                            </div>
+                            <p>Entry: {{ signal.entry }} · SL: {{ signal.sl }} · TP: {{ signal.tp }}</p>
+                            <small>Confidence: {{ signal.confidence }}%</small>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
 
-        {% endfor %}
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3><i class="fas fa-wallet"></i> MT5 Account</h3>
+                    </div>
+                    <div class="account-grid">
+                        <div><p>Account</p><h4>{{ mt5.account if mt5 else '--' }}</h4></div>
+                        <div><p>Server</p><h4>{{ mt5.server if mt5 else '--' }}</h4></div>
+                        <div><p>Free Margin</p><h4>${{ "%.2f"|format(mt5.margin) if mt5 else '0.00' }}</h4></div>
+                        <div><p>Connection</p><h4>{% if mt5 %}Active{% else %}Offline{% endif %}</h4></div>
+                    </div>
+                </div>
 
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3><i class="fas fa-table-list"></i> Open Positions</h3>
+                    </div>
+                    <table class="positions-table">
+                        <thead>
+                            <tr>
+                                <th>Symbol</th>
+                                <th>Type</th>
+                                <th>Volume</th>
+                                <th>Profit</th>
+                            </tr>
+                        </thead>
+                        <tbody id="positions"></tbody>
+                    </table>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3><i class="fas fa-terminal"></i> Trading Console</h3>
+                    </div>
+                    <div id="bot-console" class="console-box">
+                        <div class="console-line">System Initializing...</div>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
 
-</div>
-
-</div>
-
-<div class="right-column">
-
-<div class="panel">
-
-<h2>
-
-<i class="fas fa-wallet"></i>
-
-MT5 Account
-
-</h2>
-
-<div class="account-grid">
-
-<div>
-
-<p>Account</p>
-
-<h3>{{ mt5.account if mt5 else "--" }}</h3>
-
-</div>
-
-<div>
-
-<p>Server</p>
-
-<h3>{{ mt5.server if mt5 else "--" }}</h3>
-
-</div>
-
-<div>
-
-<p>Free Margin</p>
-
-<h3>
-
-${{ mt5.margin if mt5 else "0.00" }}
-
-</h3>
-
-</div>
-
-<div>
-
-<p>Connection</p>
-
-<h3>
-
-{% if mt5 %}
-
-🟢 Connected
-
-{% else %}
-
-🔴 Offline
-
-{% endif %}
-
-</h3>
-
-</div>
-
-</div>
-
-</div>
-<h2>
-
-<i class="fas fa-chart-area"></i>
-
-Live Market
-
-</h2>
-
-<div class="tradingview-widget-container hero-chart glass-panel">
-
-<div id="tradingview_chart"></div>
-
-</div>
-
-    <table>
-
-        <thead>
-
-            <tr>
-
-                <th>Symbol</th>
-
-                <th>Type</th>
-
-                <th>Volume</th>
-
-                <th>Profit</th>
-
-            </tr>
-
-        </thead>
-
-        <tbody id="positions">
-
-        </tbody>
-
-    </table>
-
-</div>
-
-<div class="panel">
-
-<h2>
-
-<i class="fas fa-terminal"></i>
-
-Live Trading Console
-
-</h2>
-
-<div id="bot-console">
-
-<div class="console-line">System Initializing...</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<footer>
-
-    <div>
-
-        <h3>GWARO CAPITAL</h3>
-
-        <p>Institutional AI Trading Platform</p>
-
-    </div>
-
-    <div>
-
-        <span class="status-circle"></span>
-
-        Secure Connection
-
-    </div>
-
-</footer>
-<script src="https://s3.tradingview.com/tv.js"></script>
-
-<script>
-
-new TradingView.widget({
-
-"container_id":"tradingview_chart",
-
-"width":"100%",
-
-"height":500,
-
-"symbol":"OANDA:XAUUSD",
-
-"interval":"5",
-
-"timezone":"Africa/Nairobi",
-
-"theme":"dark",
-
-"style":"1",
-
-"locale":"en",
-
-"toolbar_bg":"#111827",
-
-"enable_publishing":false,
-
-"hide_top_toolbar":false,
-
-"hide_legend":false,
-
-"save_image":false,
-
-"studies":[
-
-"Volume@tv-basicstudies"
-
-]
-
-});
-
-</script>
-<div id="notification-container"></div>
-<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
-
-</div>
-
+    <div id="notification-container"></div>
+
+    <script src="https://s3.tradingview.com/tv.js"></script>
+    <script>
+        if (window.TradingView) {
+            new TradingView.widget({
+                "container_id":"tradingview_chart",
+                "width":"100%",
+                "height":420,
+                "symbol":"OANDA:XAUUSD",
+                "interval":"5",
+                "timezone":"Africa/Nairobi",
+                "theme":"dark",
+                "style":"1",
+                "locale":"en",
+                "toolbar_bg":"#111827",
+                "enable_publishing":false,
+                "hide_top_toolbar":false,
+                "hide_legend":false,
+                "save_image":false,
+                "studies":["Volume@tv-basicstudies"]
+            });
+        }
+    </script>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 </body>
-
 </html>
