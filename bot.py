@@ -8,10 +8,20 @@ session_captured = True
 
 session_high = 0.0
 session_low = 999999.0
-try:
-   import MetaTrader5 as mt5 
-except ImportError:
-    mt5 = None
+
+# Avoid importing MetaTrader5 at module import time to keep web processes safe.
+mt5 = None
+
+def _get_mt5():
+    global mt5
+    if mt5 is not None:
+        return mt5
+    try:
+        import MetaTrader5 as _mt5
+        mt5 = _mt5
+        return mt5
+    except Exception:
+        return None
 import time
 from datetime import datetime
 TRADE_SYMBOL =  "XAUUSD.m"
@@ -64,31 +74,28 @@ def reset_trading_day():
 
 def capture_session():
     global session_high, session_low, session_captured
-
     now = datetime.now()
+
+    m = _get_mt5()
+    if m is None:
+        return
 
     # Capture session between 02:00 and 03:00
     if now.hour == 1:
-
-        rates = mt5.copy_rates_from_pos(TRADE_SYMBOL, mt5.TIMEFRAME_M5, 0, 12)
-
+        rates = m.copy_rates_from_pos(TRADE_SYMBOL, m.TIMEFRAME_M5, 0, 12)
         if rates is None:
             return
-
         highs = [candle["high"] for candle in rates]
         lows = [candle["low"] for candle in rates]
-
         session_high = max(highs)
         session_low = min(lows)
-
         session_captured = True
-
         print(f"Session High: {session_high}")
         print(f"Session Low : {session_low}")
 
-    rates = mt5.copy_rates_from_pos(
+    rates = m.copy_rates_from_pos(
         TRADE_SYMBOL,
-        mt5.TIMEFRAME_M5,
+        m.TIMEFRAME_M5,
         0,
         2
     )
@@ -134,9 +141,13 @@ def detect_bos():
 
     global bullish_bos, bearish_bos
 
-    rates = mt5.copy_rates_from_pos(
+    m = _get_mt5()
+    if m is None:
+        return
+
+    rates = m.copy_rates_from_pos(
         TRADE_SYMBOL,
-        mt5.TIMEFRAME_M5,
+        m.TIMEFRAME_M5,
         0,
         3
     )
@@ -165,9 +176,13 @@ def detect_order_block():
 
     global buy_order_block, sell_order_block
 
-    rates = mt5.copy_rates_from_pos(
+    m = _get_mt5()
+    if m is None:
+        return
+
+    rates = m.copy_rates_from_pos(
         TRADE_SYMBOL,
-        mt5.TIMEFRAME_M5,
+        m.TIMEFRAME_M5,
         0,
         10
     )
@@ -208,7 +223,11 @@ def wait_for_retest():
     if trade_taken:
         return
 
-    tick = mt5.symbol_info_tick(TRADE_SYMBOL)
+    m = _get_mt5()
+    if m is None:
+        return
+
+    tick = m.symbol_info_tick(TRADE_SYMBOL)
 
     if tick is None:
         return
@@ -234,34 +253,33 @@ def wait_for_retest():
 def execute_trade(direction):
 
     global trade_taken
-
     if trade_taken:
         return
 
-    tick = mt5.symbol_info_tick(TRADE_SYMBOL)
+    m = _get_mt5()
+    if m is None:
+        return
+
+    tick = m.symbol_info_tick(TRADE_SYMBOL)
 
     if tick is None:
         return
 
     if direction == "BUY":
-
         price = tick.ask
         sl = session_low
         risk = price - sl
         tp = price + (risk * 3)
-        order_type = mt5.ORDER_TYPE_BUY
-
+        order_type = m.ORDER_TYPE_BUY
     else:
-
         price = tick.bid
         sl = session_high
         risk = sl - price
         tp = price - (risk * 3)
-        order_type = mt5.ORDER_TYPE_SELL
+        order_type = m.ORDER_TYPE_SELL
 
     request = {
-
-        "action": mt5.TRADE_ACTION_DEAL,
+        "action": m.TRADE_ACTION_DEAL,
         "symbol": TRADE_SYMBOL,
         "volume": LOT,
         "type": order_type,
@@ -271,19 +289,19 @@ def execute_trade(direction):
         "deviation": 20,
         "magic": 714001,
         "comment": "Gwaro Capital",
-        "type_time": mt5.ORDER_TIME_GTC,
-        "type_filling": mt5.ORDER_FILLING_RETURN
-
+        "type_time": m.ORDER_TIME_GTC,
+        "type_filling": m.ORDER_FILLING_RETURN
     }
 
-    result = mt5.order_send(request)
-
+    result = m.order_send(request)
     print(result)
+    try:
+        retcode = getattr(result, "retcode", None)
+    except Exception:
+        retcode = None
 
-    if result.retcode == mt5.TRADE_RETCODE_DONE:
-
+    if retcode == getattr(m, "TRADE_RETCODE_DONE", None):
         trade_taken = True
-
         print("Trade Opened Successfully")
 
 def capture_session():
@@ -320,9 +338,13 @@ def detect_mss():
     global bullish_bos
     global bearish_bos
 
-    rates = mt5.copy_rates_from_pos(
+    m = _get_mt5()
+    if m is None:
+        return
+
+    rates = m.copy_rates_from_pos(
         TRADE_SYMBOL,
-        mt5.TIMEFRAME_M5,
+        m.TIMEFRAME_M5,
         0,
         5
     )
@@ -358,9 +380,13 @@ def detect_order_block():
     global buy_order_block
     global sell_order_block
 
-    rates = mt5.copy_rates_from_pos(
+    m = _get_mt5()
+    if m is None:
+        return
+
+    rates = m.copy_rates_from_pos(
         TRADE_SYMBOL,
-        mt5.TIMEFRAME_M5,
+        m.TIMEFRAME_M5,
         0,
         20
     )
@@ -398,9 +424,13 @@ def detect_fvg():
     global buy_fvg
     global sell_fvg
 
-    rates = mt5.copy_rates_from_pos(
+    m = _get_mt5()
+    if m is None:
+        return
+
+    rates = m.copy_rates_from_pos(
         TRADE_SYMBOL,
-        mt5.TIMEFRAME_M5,
+        m.TIMEFRAME_M5,
         0,
         5
     )
@@ -431,37 +461,36 @@ def detect_fvg():
 
 def wait_for_retest():
 
-    tick = mt5.symbol_info_tick(TRADE_SYMBOL)
+    m = _get_mt5()
+    if m is None:
+        return
+
+    tick = m.symbol_info_tick(TRADE_SYMBOL)
 
     if tick is None:
         return
 
     if bullish_bos:
-
         entry = buy_order_block if buy_order_block > 0 else buy_fvg
-
         if entry > 0 and tick.ask <= entry:
-
             print("BUY ENTRY")
-
             execute_trade("BUY")
 
     if bearish_bos:
-
         entry = sell_order_block if sell_order_block > 0 else sell_fvg
-
         if entry > 0 and tick.bid >= entry:
-
             print("SELL ENTRY")
-
-            execute_trade("SELL")    
+            execute_trade("SELL")
     
 def detect_liquidity_sweep():
     global bullish_sweep, bearish_sweep
+    m = _get_mt5()
+    if m is None:
+        return
 
-    rates = mt5.copy_rates_from_pos(
+    rates = m.copy_rates_from_pos(
         TRADE_SYMBOL,
-        mt5.TIMEFRAME_M5,
+        m.TIMEFRAME_M5,
         0,
         3
     )
@@ -488,9 +517,13 @@ def detect_liquidity_sweep():
 def confirm_entry():
     global bullish_sweep, bearish_sweep, trade_taken
 
-    rates = mt5.copy_rates_from_pos(
+    m = _get_mt5()
+    if m is None:
+        return
+
+    rates = m.copy_rates_from_pos(
         TRADE_SYMBOL,
-        mt5.TIMEFRAME_M5,
+        m.TIMEFRAME_M5,
         0,
         5
     )
@@ -555,88 +588,88 @@ def detect_liquidity_sweep():
         print("Bearish liquidity sweep detected!")
 
 def manage_trade():
-    positions = mt5.positions_get(symbol=TRADE_SYMBOL)
+    m = _get_mt5()
+    if m is None:
+        return
 
+    positions = m.positions_get(symbol=TRADE_SYMBOL)
     if positions is None:
         return
 
     for position in positions:
-
-        if position.type == mt5.POSITION_TYPE_BUY:
-            profit = mt5.symbol_info_tick(TRADE_SYMBOL).bid - position.price_open
-
+        p_type = getattr(position, "type", None)
+        if p_type == getattr(m, "POSITION_TYPE_BUY", None):
+            profit = m.symbol_info_tick(TRADE_SYMBOL).bid - position.price_open
             if profit > 2:
                 request = {
-                    "action": mt5.TRADE_ACTION_SLTP,
+                    "action": m.TRADE_ACTION_SLTP,
                     "position": position.ticket,
                     "sl": position.price_open,
                     "tp": position.tp,
                 }
-
-                mt5.order_send(request)
-
-        elif position.type == mt5.POSITION_TYPE_SELL:
-            profit = position.price_open - mt5.symbol_info_tick(TRADE_SYMBOL).ask
-
+                m.order_send(request)
+        elif p_type == getattr(m, "POSITION_TYPE_SELL", None):
+            profit = position.price_open - m.symbol_info_tick(TRADE_SYMBOL).ask
             if profit > 2:
                 request = {
-                    "action": mt5.TRADE_ACTION_SLTP,
+                    "action": m.TRADE_ACTION_SLTP,
                     "position": position.ticket,
                     "sl": position.price_open,
                     "tp": position.tp,
                 }
-
-                mt5.order_send(request)
+                m.order_send(request)
   
 def trailing_stop():
-    positions = mt5.positions_get(symbol=TRADE_SYMBOL)
+    m = _get_mt5()
+    if m is None:
+        return
 
+    positions = m.positions_get(symbol=TRADE_SYMBOL)
     if positions is None:
         return
 
-    tick = mt5.symbol_info_tick(TRADE_SYMBOL)
+    tick = m.symbol_info_tick(TRADE_SYMBOL)
 
     for position in positions:
-
-        if position.type == mt5.POSITION_TYPE_BUY:
-
+        if getattr(position, "type", None) == getattr(m, "POSITION_TYPE_BUY", None):
             new_sl = tick.bid - 1.0
-
             if new_sl > position.sl:
                 request = {
-                    "action": mt5.TRADE_ACTION_SLTP,
+                    "action": m.TRADE_ACTION_SLTP,
                     "position": position.ticket,
                     "sl": new_sl,
                     "tp": position.tp,
                 }
-
-                mt5.order_send(request)
-
-        elif position.type == mt5.POSITION_TYPE_SELL:
-
+                m.order_send(request)
+        elif getattr(position, "type", None) == getattr(m, "POSITION_TYPE_SELL", None):
             new_sl = tick.ask + 1.0
-
             if position.sl == 0 or new_sl < position.sl:
                 request = {
-                    "action": mt5.TRADE_ACTION_SLTP,
+                    "action": m.TRADE_ACTION_SLTP,
                     "position": position.ticket,
                     "sl": new_sl,
                     "tp": position.tp,
                 }
-
-                mt5.order_send(request)
+                m.order_send(request)
     
 def start():
     global running
     running = True
 
     print("Loading Gwaro Capital EA")
+    m = _get_mt5()
+    if m is None:
+        print("MetaTrader5 module not available. Bot cannot start in this environment.")
+        return
 
     while running:
-        account = mt5.account_info()
-
+        account = m.account_info()
         if account:
-            print(f"Balance: {account.balance}")
+            try:
+                bal = getattr(account, "balance", None)
+                print(f"Balance: {bal}")
+            except Exception:
+                pass
 
         capture_session()
         check_strategy()
@@ -645,7 +678,10 @@ def start():
 
         time.sleep(5)
 
-    mt5.shutdown()
+    try:
+        m.shutdown()
+    except Exception:
+        pass
     print("Bot stopped.")
 
 def stop():

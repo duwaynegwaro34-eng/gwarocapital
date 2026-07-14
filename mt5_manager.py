@@ -1,187 +1,86 @@
 from datetime import datetime, timezone
 import threading
-
-try:
-    import MetaTrader5 as mt5
-except ImportError:
-    mt5 = None
+from services.mt5_bridge_client import MT5BridgeClient
 
 
 class MT5Manager:
-    def __init__(self):
+    """
+    Adapter that provides the same high-level methods but routes calls
+    to a remote MT5 Bridge over HTTP when configured. If no bridge URL is
+    configured, methods behave as if MT5 is unavailable (bridge offline).
+    """
+    def __init__(self, bridge_url=None):
         self._lock = threading.RLock()
-        self._login = None
-        self._password = None
-        self._server = None
-        self._connected = False
-        self._connection_time = None
-        self._last_error = ""
-        self._initialized = False
-
-    def _initialize_mt5(self):
-        if mt5 is None:
-            return False
-
-        if self._initialized:
-            return True
-
-        if self._login is not None and self._password and self._server:
-            initialized = mt5.initialize(login=self._login, password=self._password, server=self._server)
-        else:
-            initialized = mt5.initialize()
-
-        if not initialized:
-            return False
-
-        self._initialized = True
-        return True
-
-    def connect(self, login, password, server):
-        if mt5 is None:
-            return {
-                "ok": False,
-                "message": "MetaTrader5 package is not installed.",
-            }
-
-        login_str = str(login).strip()
-        password_str = str(password).strip()
-        server_str = str(server).strip()
-
-        if not login_str or not password_str or not server_str:
-            return {
-                "ok": False,
-                "message": "Login, password, and server are required.",
-            }
-
-        try:
-            login_int = int(login_str)
-        except ValueError:
-            return {
-                "ok": False,
-                "message": "MT5 login must be numeric.",
-            }
-
-        with self._lock:
-            self._login = login_int
-            self._password = password_str
-            self._server = server_str
-
-            if self._initialized:
-                self.shutdown_client()
-
-            initialized = mt5.initialize(login=login_int, password=password_str, server=server_str)
-            if not initialized:
-                error = mt5.last_error()
-                self._last_error = f"{error[0]}: {error[1]}" if error else "Unknown MT5 error"
-                self._connected = False
-                self._connection_time = None
-                return {
-                    "ok": False,
-                    "message": f"Failed to connect to MT5: {self._last_error}",
-                }
-
-            account = mt5.account_info()
-            if account is None:
-                self._connected = False
-                self._connection_time = None
-                self._last_error = "Connected terminal has no logged-in account."
-                self.shutdown_client()
-                return {
-                    "ok": False,
-                    "message": self._last_error,
-                }
-
-            self._initialized = True
-            self._login = int(getattr(account, "login", login_int))
-            self._server = getattr(account, "server", server_str) or server_str
-            self._connected = True
-            self._connection_time = datetime.now(timezone.utc)
-            self._last_error = ""
-
-            return {
-                "ok": True,
-                "message": "MT5 connected successfully.",
-            }
-
-    def disconnect(self):
-        with self._lock:
-            self.shutdown_client()
-            self._connected = False
-            self._connection_time = None
-
-        return {
-            "ok": True,
-            "message": "MT5 disconnected.",
-        }
+        self._bridge = MT5BridgeClient(base_url=bridge_url)
 
     def connection_status(self):
-        if mt5 is None:
+        try:
+            status = self._bridge.connection_status()
+            return {
+                "installed": True,
+                "running": bool(status.get("connected")),
+                "connected": bool(status.get("connected")),
+                "status": status.get("status") or ("Connected" if status.get("connected") else "Disconnected"),
+                "account_login": status.get("account_login"),
+                "server": status.get("server"),
+                "connection_time": status.get("connection_time") or "--",
+                "last_error": status.get("reason") or None,
+            }
+        except Exception:
             return {
                 "installed": False,
                 "running": False,
                 "connected": False,
-                "status": "Disconnected",
+                "status": "Offline",
                 "account_login": None,
                 "server": "",
                 "connection_time": "--",
-                "last_error": "MetaTrader5 package is not installed.",
-            }
-
-        with self._lock:
-            running = False
-            account_login = None
-            server = self._server or ""
-
-            if not self._initialize_mt5():
-                self._connected = False
-                error = mt5.last_error() if mt5 is not None else None
-                self._last_error = f"{error[0]}: {error[1]}" if error else "Unknown MT5 error"
-            else:
-                running = True
-                account = mt5.account_info()
-                if account is not None:
-                    account_login = int(getattr(account, "login", 0) or 0)
-                    server = getattr(account, "server", server) or server
-                    self._connected = True
-                    self._last_error = ""
-                else:
-                    self._connected = False
-                    self._last_error = "Connected terminal has no logged-in account."
-                    self.shutdown_client()
-                    running = False
-
-            return {
-                "installed": True,
-                "running": running,
-                "connected": self._connected,
-                "status": "Connected" if self._connected else "Disconnected",
-                "account_login": account_login if self._connected else None,
-                "server": server if self._connected else "",
-                "connection_time": self._connection_time.isoformat() if self._connection_time else "--",
-                "last_error": self._last_error if not self._connected else "",
+                "last_error": "MT5 Bridge unreachable",
             }
 
     def initialize_client(self):
-        if mt5 is None:
-            return False
-
-        with self._lock:
-            return self._initialize_mt5()
+        # No local MT5 client to initialize; rely on bridge configuration
+        return self._bridge.is_configured()
 
     def shutdown_client(self):
-        if mt5 is None:
-            return
+        # No local shutdown required for bridge
+        return True
+    def account_info(self):
+        try:
+            return self._bridge.account_info()
+        except Exception:
+            return None
 
-        with self._lock:
-            if not self._initialized:
-                return
-            try:
-                mt5.shutdown()
-            except Exception:
-                pass
-            finally:
-                self._initialized = False
-                self._connected = False
+    def positions_get(self):
+        try:
+            return self._bridge.positions_get()
+        except Exception:
+            return []
+
+    def history_deals_get(self, start=None, end=None, limit=50):
+        try:
+            return self._bridge.history_deals_get(start=start, end=end, limit=limit)
+        except Exception:
+            return []
+
+    def orders_get(self):
+        try:
+            return self._bridge.orders_get()
+        except Exception:
+            return []
+
+    def symbol_info_tick(self, symbol):
+        try:
+            return self._bridge.symbol_info_tick(symbol)
+        except Exception:
+            return None
+
+    def order_send(self, payload):
+        try:
+            return self._bridge.order_send(payload)
+        except Exception:
+            return None
 
 
-mt5_manager = MT5Manager()
+# Default manager uses environment variable MT5_BRIDGE_URL if present
+mt5_manager = MT5Manager(bridge_url=None)

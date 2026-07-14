@@ -8,10 +8,7 @@ import logging
 
 from config import settings as app_settings
 
-try:
-    import MetaTrader5 as mt5
-except ImportError:
-    mt5 = None
+# Do not import MetaTrader5 at module import time; import lazily where needed.
 
 
 class MT5Bridge:
@@ -45,14 +42,16 @@ class MT5Bridge:
         mt5_bridge_env = os.getenv("MT5_BRIDGE_DIR")
         if mt5_bridge_env:
             return mt5_bridge_env
-        if self._mt5_manager is not None and mt5 is not None:
+        if self._mt5_manager is not None:
             try:
-                if not mt5.initialize():
+                import MetaTrader5 as _mt5
+                if not _mt5.initialize():
                     raise RuntimeError("MT5 initialize failed")
-                terminal_info = mt5.terminal_info()
+                terminal_info = _mt5.terminal_info()
                 if terminal_info is not None and terminal_info.data_path:
                     return os.path.join(terminal_info.data_path, "MQL5", "Files", "gwaro_mt5_bridge")
             except Exception:
+                # If MetaTrader5 isn't available in this environment, fall back
                 pass
         return getattr(app_settings, "mt5_bridge_dir", None) or os.path.join(os.getcwd(), "instance", "mt5_bridge")
 

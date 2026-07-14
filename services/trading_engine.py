@@ -3,7 +3,7 @@ import os
 import threading
 import time
 
-from mt5_manager import mt5
+from mt5_manager import mt5_manager
 from config import settings as app_settings
 
 
@@ -111,7 +111,9 @@ class TradingEngine:
                     bot_id = self._active_bot_id
 
                 try:
-                    if mt5 is None or mt5.account_info() is None:
+                    # Use bridge-backed manager for account checks
+                    account = self._mt5_manager.account_info()
+                    if account is None:
                         raise RuntimeError("No authenticated MT5 account is active")
 
                     self._run_bot_cycle(bot_id)
@@ -215,22 +217,30 @@ class TradingEngine:
         )
 
     def _track_position_events(self):
-        if mt5 is None:
-            return
-
-        positions = mt5.positions_get() or []
+        positions = self._mt5_manager.positions_get() or []
         current_positions = {}
 
         for position in positions:
-            ticket = getattr(position, "ticket", None)
-            if ticket is None:
-                continue
-            current_positions[ticket] = {
-                "symbol": getattr(position, "symbol", ""),
-                "type": "BUY" if getattr(position, "type", 1) == 0 else "SELL",
-                "volume": float(getattr(position, "volume", 0.0) or 0.0),
-                "profit": float(getattr(position, "profit", 0.0) or 0.0),
-            }
+            if isinstance(position, dict):
+                ticket = position.get("ticket")
+                if ticket is None:
+                    continue
+                current_positions[ticket] = {
+                    "symbol": position.get("symbol", ""),
+                    "type": "BUY" if position.get("type", 1) == 0 else "SELL",
+                    "volume": float(position.get("volume", 0.0) or 0.0),
+                    "profit": float(position.get("profit", 0.0) or 0.0),
+                }
+            else:
+                ticket = getattr(position, "ticket", None)
+                if ticket is None:
+                    continue
+                current_positions[ticket] = {
+                    "symbol": getattr(position, "symbol", ""),
+                    "type": "BUY" if getattr(position, "type", 1) == 0 else "SELL",
+                    "volume": float(getattr(position, "volume", 0.0) or 0.0),
+                    "profit": float(getattr(position, "profit", 0.0) or 0.0),
+                }
 
         opened = set(current_positions.keys()) - set(self._known_positions.keys())
         closed = set(self._known_positions.keys()) - set(current_positions.keys())
