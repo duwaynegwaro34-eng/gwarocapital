@@ -1,0 +1,52 @@
+test_license_validation_endpoint (tests.test_phase8_subscription_admin.Phase8SubscriptionAdminTests.test_license_validation_endpoint) ... ERROR
+
+======================================================================
+ERROR: test_license_validation_endpoint (tests.test_phase8_subscription_admin.Phase8SubscriptionAdminTests.test_license_validation_endpoint)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_phase8_subscription_admin.py", line 99, in test_license_validation_endpoint
+    response = self.client.get("/api/licenses/validate?mt5_account=12345678")
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\werkzeug\test.py", line 1162, in get
+    return self.open(*args, **kw)
+           ~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\testing.py", line 235, in open
+    response = super().open(
+        request,
+        buffered=buffered,
+        follow_redirects=follow_redirects,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\werkzeug\test.py", line 1116, in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\werkzeug\test.py", line 988, in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\werkzeug\test.py", line 1264, in run_wsgi_app
+    app_rv = app(environ, start_response)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1536, in __call__
+    return self.wsgi_app(environ, start_response)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1514, in wsgi_app
+    response = self.handle_exception(e)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py", line 2125, in license_validate_api
+    valid, message = validate_license_for_bot_start(user)
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py", line 429, in validate_license_for_bot_start
+    if license_row.expires_at and license_row.expires_at < _now_utc():
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+
+----------------------------------------------------------------------
+Ran 1 test in 18.637s
+
+FAILED (errors=1)

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Reset Code - Gwaro Capital</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+</head>
+<body>
+    <div class="auth-shell">
+        <form class="auth-card" method="POST">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <div class="auth-brand">GWARO CAPITAL</div>
+            <h1>Verify Reset Code</h1>
+            <p class="auth-subtitle">Enter the 6-digit verification code sent to your email.</p>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <div class="flash-list">
+                  {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
+
+            <input type="text" name="code" placeholder="6-digit verification code" pattern="[0-9]{6}" maxlength="6" required>
+            <button type="submit">Verify Code</button>
+
+            <div class="auth-links">
+                <a href="/forgot-password">Resend Code</a>
+                <a href="/login">Back to Login</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,52 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Login - Gwaro Capital</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Gwaro Capital</title>
+  <meta name="description" content="Sign in to Gwaro Capital to access your premium MT5 trading dashboard and bot control.">
+  <meta name="keywords" content="Gwaro Capital login, MT5 dashboard">
+  <meta property="og:title" content="Gwaro Capital — Login">
+  <meta property="og:description" content="Sign in to access premium MT5 trading tools.">
+  <link rel="canonical" href="https://gwarocapital.com{{ request.path }}">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
 </head>
-
 <body>
+    <div class="auth-shell">
+        <form class="auth-card" method="POST">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <div class="auth-brand">GWARO CAPITAL</div>
+            <h1>Welcome back</h1>
+            <p class="auth-subtitle">Secure access to your trading workspace.</p>
 
-<h1>Login</h1>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <div class="flash-list">
+                  {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
 
-{% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    <ul>
-      {% for category, message in messages %}
-        <li>{{ message }}</li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
 
-<form method="POST">
-
-    <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        required
-    >
-
-    <br><br>
-
-    <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        required
-    >
-
-    <br><br>
-
-    <button type="submit">
-        Login
-    </button>
-
-</form>
-
-<br>
-
-<a href="/register">Create an account</a>
-
+            <div class="auth-links">
+                <a href="/forgot-password">Forgot Password?</a>
+                <a href="/register">Create an account</a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

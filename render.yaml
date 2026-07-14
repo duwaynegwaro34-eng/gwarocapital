@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: gwaro-capital
+    env: docker
+    plan: free
+    dockerfilePath: Dockerfile
+    buildCommand: ""
+    startCommand: "gunicorn wsgi:app -w 4 -b 0.0.0.0:$PORT"
+    envVars:
+      - key: SECRET_KEY
+        value: "replace-with-secure-key"
+      - key: DATABASE_URL
+        value: "sqlite:///gwaro.db"

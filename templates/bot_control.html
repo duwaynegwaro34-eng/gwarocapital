@@ -1,0 +1,248 @@
+{% extends "dashboard.html" %}
+
+{% block title %}Bot Control | Gwaro Capital{% endblock %}
+
+{% block content %}
+<section class="hero-strip">
+    <div class="hero-copy">
+        <h3>Bot Control</h3>
+        <p>Operate the single Gwaro Dollar Printer strategy on XAUUSD and monitor live MT5 state.</p>
+    </div>
+    <div class="hero-pill">Single Strategy</div>
+</section>
+
+<section class="stats-grid">
+    <article class="stat-card">
+        <div class="icon blue"><i class="fas fa-gold"></i></div>
+        <div>
+            <p>Trading Symbol</p>
+            <h3>XAUUSD</h3>
+        </div>
+    </article>
+    <article class="stat-card">
+        <div class="icon green"><i class="fas fa-clock"></i></div>
+        <div>
+            <p>Uptime</p>
+            <h3 id="bot-uptime">{{ bot_uptime }}</h3>
+        </div>
+    </article>
+    <article class="stat-card">
+        <div class="icon orange"><i class="fas fa-play-circle"></i></div>
+        <div>
+            <p>Status</p>
+            <h3 id="bot-status">{% if bot_running %}<span style="color: #4ade80;">Running</span>{% else %}<span style="color: #ef4444;">Stopped</span>{% endif %}</h3>
+        </div>
+    </article>
+    <article class="stat-card">
+        <div class="icon purple"><i class="fas fa-tachometer-alt"></i></div>
+        <div>
+            <p>Last Signal</p>
+            <h3 id="bot-last-signal">{{ bot_last_signal }}</h3>
+        </div>
+    </article>
+    <article class="stat-card">
+        <div class="icon pink"><i class="fas fa-satellite-dish"></i></div>
+        <div>
+            <p>MT5 Connection</p>
+            <h3 id="mt5-connection-status">{{ mt5.status if mt5 else 'Offline' }}</h3>
+        </div>
+    </article>
+</section>
+
+<section class="panel wide-panel" style="margin-top: 16px;">
+    <div class="panel-heading">
+        <h3><i class="fas fa-cogs"></i> Gwaro Dollar Printer</h3>
+        <span class="panel-badge" id="control-panel-badge">{{ 'Running' if bot_running else 'Stopped' }}</span>
+    </div>
+    <div class="account-grid">
+        <div><p>Bot Name</p><h4 id="selected-ea-label">{{ bot_current }}</h4></div>
+        <div><p>Trading Market</p><h4>XAUUSD (Gold)</h4></div>
+        <div><p>Current Status</p><h4 id="status-label">{% if bot_running %}Running{% else %}Stopped{% endif %}</h4></div>
+        <div><p>Uptime</p><h4 id="uptime-label">{{ bot_uptime }}</h4></div>
+    </div>
+    <div style="margin-top: 16px; padding: 12px; background: #1a1a2e; border-radius: 8px; border-left: 3px solid #8ab4f8;">
+        <p style="color: #8ab4f8; font-size: 0.9rem; margin: 0;">
+            This bot trades exclusively on <strong>XAUUSD</strong> (Gold/USD). No other symbols are supported.
+        </p>
+    </div>
+    <div class="button-stack" style="margin-top: 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+        <button type="button" id="start-bot-btn" class="cta-btn start">
+            <i class="fas fa-play"></i> Start Bot
+        </button>
+        <button type="button" id="stop-bot-btn" class="cta-btn stop">
+            <i class="fas fa-stop"></i> Stop Bot
+        </button>
+        <button type="button" id="restart-bot-btn" class="cta-btn" style="background: #3b82f6;">
+            <i class="fas fa-rotate-right"></i> Restart Bot
+        </button>
+        <button type="button" id="close-all-trades-btn" class="cta-btn" style="background: #ef4444;">
+            <i class="fas fa-ban"></i> Close All Trades
+        </button>
+        <button type="button" id="break-even-btn" class="cta-btn" style="background: #f59e0b;">
+            <i class="fas fa-balance-scale"></i> Break Even
+        </button>
+        <button type="button" id="refresh-bot-btn" class="cta-btn" style="background: #10b981;">
+            <i class="fas fa-sync"></i> Refresh
+        </button>
+        <div id="bot-action-message" style="color: #8ab4f8; font-size: 0.95rem; min-height: 1.2em;">{% if bot_running %}MT5 confirmed the bot is running.{% else %}Ready to start the single XAUUSD bot.{% endif %}</div>
+    </div>
+</section>
+
+<section class="panel" style="margin-top: 16px;">
+    <div class="panel-heading">
+        <h3><i class="fas fa-chart-line"></i> Live Performance Metrics</h3>
+    </div>
+    <div class="metric-grid">
+        <div class="metric-card"><p>Bot Name</p><h4 id="selected-ea-label-metric">{{ bot_current }}</h4></div>
+        <div class="metric-card"><p>Running Status</p><h4 id="selected-ea-status">{% if bot_running %}Running{% else %}Stopped{% endif %}</h4></div>
+        <div class="metric-card"><p>Uptime</p><h4 id="selected-ea-uptime">{{ bot_uptime }}</h4></div>
+        <div class="metric-card"><p>Last Signal</p><h4 id="bot-last-signal-live">{{ bot_last_signal }}</h4></div>
+        <div class="metric-card"><p>Balance</p><h4 id="bot-balance">{{ mt5.balance if mt5 else '0.00' }}</h4></div>
+        <div class="metric-card"><p>Equity</p><h4 id="bot-equity">{{ mt5.equity if mt5 else '0.00' }}</h4></div>
+        <div class="metric-card"><p>Open Trades</p><h4 id="bot-open-trades">0</h4></div>
+        <div class="metric-card"><p>Profit</p><h4 id="bot-profit">{{ mt5.profit if mt5 else '0.00' }}</h4></div>
+        <div class="metric-card"><p>MT5 State</p><h4 id="bot-mt5-state">{{ mt5.status if mt5 else 'Offline' }}</h4></div>
+        <div class="metric-card"><p>Bridge State</p><h4 id="bot-bridge-state">Pending</h4></div>
+        <div class="metric-card"><p>Last Trade</p><h4 id="bot-last-trade-result">{{ bot_last_trade_result }}</h4></div>
+        <div class="metric-card"><p>Strategy</p><h4>Gwaro Dollar Printer · XAUUSD</h4></div>
+    </div>
+</section>
+
+<section class="panel" style="margin-top: 16px;">
+    <div class="panel-heading">
+        <h3><i class="fas fa-history"></i> Activity Log</h3>
+    </div>
+    <div id="bot-activity-list" style="padding: 12px; max-height: 300px; overflow-y: auto;">
+        <p style="color: #999;">Loading activity...</p>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+function setBusyState(busy, actionLabel) {
+    const buttons = [
+        document.getElementById('start-bot-btn'),
+        document.getElementById('stop-bot-btn'),
+        document.getElementById('restart-bot-btn'),
+        document.getElementById('close-all-trades-btn'),
+        document.getElementById('break-even-btn'),
+        document.getElementById('refresh-bot-btn'),
+    ];
+    buttons.forEach((button) => {
+        if (button) {
+            button.disabled = busy;
+            button.classList.toggle('is-loading', busy);
+        }
+    });
+    const messageEl = document.getElementById('bot-action-message');
+    if (messageEl) {
+        messageEl.textContent = busy ? `${actionLabel} in progress...` : 'Ready to manage the single XAUUSD bot.';
+    }
+}
+
+async function refreshControlState() {
+    try {
+        const [statusResult, mt5Result, activityResult] = await Promise.all([
+            window.GwaroBotControl?.requestJson('/api/bot/status', { method: 'GET' }) || { ok: false, data: {} },
+            window.GwaroBotControl?.requestJson('/api/mt5/summary', { method: 'GET' }) || { ok: false, data: {} },
+            window.GwaroBotControl?.requestJson('/api/bot/activity?limit=8', { method: 'GET' }) || { ok: false, data: { activities: [] } },
+        ]);
+
+        const status = statusResult.ok ? statusResult.data : {};
+        const mt5 = mt5Result.ok ? mt5Result.data : {};
+        const activity = activityResult.ok ? activityResult.data : { activities: [] };
+
+        document.getElementById('bot-uptime').textContent = status.uptime || '0s';
+        document.getElementById('bot-status').innerHTML = status.running ? '<span style="color: #4ade80;">Running</span>' : '<span style="color: #ef4444;">Stopped</span>';
+        document.getElementById('status-label').textContent = status.running ? 'Running' : 'Stopped';
+        document.getElementById('uptime-label').textContent = status.uptime || '0s';
+        document.getElementById('selected-ea-label').textContent = status.current_bot || 'Unknown';
+        document.getElementById('selected-ea-label-metric').textContent = status.current_bot || 'Unknown';
+        document.getElementById('selected-ea-status').innerHTML = status.running ? '<span style="color: #4ade80;">Running</span>' : '<span style="color: #ef4444;">Stopped</span>';
+        document.getElementById('selected-ea-uptime').textContent = status.uptime || '0s';
+        document.getElementById('bot-last-signal').textContent = status.last_signal || 'No signal yet';
+        document.getElementById('bot-last-signal-live').textContent = status.last_signal || 'No signal yet';
+        document.getElementById('bot-last-trade-result').textContent = status.last_trade_result || 'No trades yet';
+        document.getElementById('bot-balance').textContent = status.balance !== undefined ? status.balance : (mt5.balance !== undefined ? mt5.balance : '0.00');
+        document.getElementById('bot-equity').textContent = status.equity !== undefined ? status.equity : (mt5.equity !== undefined ? mt5.equity : '0.00');
+        document.getElementById('bot-open-trades').textContent = status.open_trades !== undefined ? status.open_trades : '0';
+        document.getElementById('bot-profit').textContent = status.profit !== undefined ? status.profit : (mt5.profit !== undefined ? mt5.profit : '0.00');
+        document.getElementById('bot-mt5-state').textContent = status.mt5_status || mt5.status || 'Disconnected';
+        document.getElementById('bot-bridge-state').textContent = status.mt5_bridge?.state || 'Pending';
+        document.getElementById('control-panel-badge').textContent = status.running ? 'Running' : 'Stopped';
+        const mt5StatusEl = document.getElementById('mt5-connection-status');
+        if (mt5StatusEl) {
+            mt5StatusEl.textContent = status.mt5_status || mt5.status || 'Disconnected';
+        }
+
+        const startBtn = document.getElementById('start-bot-btn');
+        const stopBtn = document.getElementById('stop-bot-btn');
+        if (status.running) {
+            if (startBtn) startBtn.style.display = 'none';
+            if (stopBtn) stopBtn.style.display = 'inline-flex';
+        } else {
+            if (startBtn) startBtn.style.display = 'inline-flex';
+            if (stopBtn) stopBtn.style.display = 'none';
+        }
+
+        const container = document.getElementById('bot-activity-list');
+        if (container) {
+            if (!activity.activities || !activity.activities.length) {
+                container.innerHTML = '<p style="color: #999;">No activity yet</p>';
+            } else {
+                container.innerHTML = activity.activities.map((item) => `
+                    <div style="border-bottom: 1px solid #222; padding: 8px 0;">
+                        <strong>${item.type || 'Activity'}</strong> — ${item.message || 'No details'}
+                        <div style="font-size: 0.9em; color: #999;">${item.created_at || 'N/A'}</div>
+                    </div>
+                `).join('');
+            }
+        }
+    } catch (error) {
+        console.error('refreshControlState error:', error);
+    }
+}
+
+async function runSharedAction(actionName, actionLabel) {
+    setBusyState(true, actionLabel);
+    try {
+        const payload = await window.GwaroBotControl[actionName]();
+        await refreshControlState();
+        const messageEl = document.getElementById('bot-action-message');
+        if (messageEl) {
+            messageEl.textContent = payload.message || `${actionLabel} completed.`;
+            messageEl.style.color = payload.success ? '#4ade80' : '#f87171';
+        }
+        if (!payload.success) {
+            alert(payload.message || `${actionLabel} failed`);
+        }
+        return payload;
+    } catch (error) {
+        const messageEl = document.getElementById('bot-action-message');
+        if (messageEl) {
+            messageEl.textContent = `${actionLabel} failed.`;
+            messageEl.style.color = '#f87171';
+        }
+        alert(`${actionLabel} error: ${String(error)}`);
+        return { success: false, message: String(error) };
+    } finally {
+        setBusyState(false, actionLabel);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('start-bot-btn')?.addEventListener('click', () => runSharedAction('startBot', 'Starting bot'));
+    document.getElementById('stop-bot-btn')?.addEventListener('click', () => runSharedAction('stopBot', 'Stopping bot'));
+    document.getElementById('restart-bot-btn')?.addEventListener('click', () => runSharedAction('restartBot', 'Restarting bot'));
+    document.getElementById('close-all-trades-btn')?.addEventListener('click', () => runSharedAction('closeAllTrades', 'Closing trades'));
+    document.getElementById('break-even-btn')?.addEventListener('click', () => runSharedAction('breakEven', 'Applying break-even'));
+    document.getElementById('refresh-bot-btn')?.addEventListener('click', () => runSharedAction('refreshStatus', 'Refreshing status'));
+
+    refreshControlState();
+    setInterval(refreshControlState, 6000);
+});
+</script>
+<script src="{{ url_for('static', filename='js/bot-control-shared.js') }}"></script>
+{% endblock %}

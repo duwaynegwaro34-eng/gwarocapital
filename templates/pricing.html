@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing | Gwaro Capital</title>
+    <meta name="description" content="Pricing plans for Gwaro Capital — choose monthly or lifetime access to premium MT5 automation and AI signals.">
+    <meta name="keywords" content="Gwaro Capital pricing, subscription, MT5 EA, trading bot">
+    <meta property="og:title" content="Pricing — Gwaro Capital">
+    <meta property="og:description" content="Choose monthly or lifetime access to premium MT5 automation and AI signals.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gwarocapital.com/pricing">
+    <link rel="canonical" href="https://gwarocapital.com{{ request.path }}">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+</head>
+<body>
+<nav>
+    <h2>GWARO CAPITAL</h2>
+    <div>
+        <a href="/">Home</a>
+        <a href="/pricing">Pricing</a>
+        {% if user %}
+            <a href="{{ url_for('subscription_page') }}">Subscription</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+        {% endif %}
+    </div>
+</nav>
+
+<main>
+    <section class="pricing">
+        <h1>Pricing</h1>
+        <div class="plans">
+            <div class="plan">
+                <h2>Monthly</h2>
+                <h3>${{ '%.2f'|format(pricing['MONTHLY']) }}</h3>
+                <p>✔ MT5 EA Access</p>
+                <p>✔ AI Trading Signals</p>
+                <p>✔ Dashboard Insights</p>
+                <p>✔ Priority Support</p>
+                <a href="{{ url_for('subscription_page') }}" class="cta-btn">Subscribe</a>
+            </div>
+            <div class="plan premium">
+                <h2>Lifetime</h2>
+                <h3>${{ '%.2f'|format(pricing['LIFETIME']) }}</h3>
+                <p>✔ Lifetime Access</p>
+                <p>✔ Unlimited Updates</p>
+                <p>✔ VIP Support</p>
+                <p>✔ Future AI Releases</p>
+                <a href="{{ url_for('subscription_page') }}" class="cta-btn">Buy Now</a>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

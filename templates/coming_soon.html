@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gwaro Capital | {{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div class="brand">
+                <h1>GWARO</h1>
+                <span>CAPITAL</span>
+            </div>
+
+            <ul class="nav-links">
+                <li class="{{ 'active' if request.endpoint == 'dashboard' else '' }}">
+                    <a href="{{ url_for('dashboard') }}"><i class="fas fa-chart-line"></i> Dashboard</a>
+                </li>
+                <li class="{{ 'active' if request.endpoint == 'bot_control' else '' }}">
+                    <a href="{{ url_for('bot_control') }}"><i class="fas fa-robot"></i> Bot Control</a>
+                </li>
+                <li class="{{ 'active' if request.endpoint == 'analytics' else '' }}">
+                    <a href="{{ url_for('analytics') }}"><i class="fas fa-chart-candlestick"></i> Analytics</a>
+                </li>
+                <li class="{{ 'active' if request.endpoint == 'ai_signals' else '' }}">
+                    <a href="{{ url_for('ai_signals') }}"><i class="fas fa-brain"></i> AI Signals</a>
+                </li>
+                <li class="{{ 'active' if request.endpoint == 'mt5_page' else '' }}">
+                    <a href="{{ url_for('mt5_page') }}"><i class="fas fa-wallet"></i> MT5</a>
+                </li>
+                <li class="{{ 'active' if request.endpoint == 'trade_history' else '' }}">
+                    <a href="{{ url_for('trade_history') }}"><i class="fas fa-clock-rotate-left"></i> History</a>
+                </li>
+                <li class="{{ 'active' if request.endpoint == 'settings' else '' }}">
+                    <a href="{{ url_for('settings') }}"><i class="fas fa-gear"></i> Settings</a>
+                </li>
+                <li><a href="{{ url_for('logout') }}"><i class="fas fa-right-from-bracket"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-panel">
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">Institutional Trading Platform</p>
+                    <h2>Welcome back, {{ user.username if user else 'Trader' }}</h2>
+                </div>
+                <div class="topbar-status">
+                    <span class="status-dot"></span>
+                    <span>Live Platform</span>
+                </div>
+            </header>
+
+            <section class="hero-strip">
+                <div class="hero-copy">
+                    <h3>{{ title }}</h3>
+                    <p>{{ subtitle }}</p>
+                </div>
+                <div class="hero-pill">Coming Soon</div>
+            </section>
+
+            <section class="panel" style="max-width: 760px; margin-top: 18px;">
+                <div class="panel-heading">
+                    <h3><i class="fas fa-rocket"></i> {{ title }}</h3>
+                </div>
+                <div class="signal-item">
+                    <p>This section is currently being prepared for release. The experience will be added here soon while preserving the current dark dashboard design.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

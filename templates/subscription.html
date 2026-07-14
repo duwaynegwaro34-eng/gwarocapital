@@ -1,0 +1,583 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Subscription | Gwaro Capital</title>
+    <meta name="description" content="Manage your Gwaro Capital subscription, billing, and M-Pesa prompt. Upgrade to premium plans for MT5 EA access.">
+    <meta name="keywords" content="Gwaro Capital subscription, billing, M-Pesa, payments">
+    <meta property="og:title" content="Gwaro Capital — Subscription">
+    <meta property="og:description" content="Manage billing and upgrade to premium MT5 automation plans.">
+    <link rel="canonical" href="https://gwarocapital.com{{ request.path }}">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: radial-gradient(circle at top center, rgba(63, 123, 255, 0.18), transparent 36%),
+                        linear-gradient(180deg, #050816 0%, #0f1325 100%);
+            color: #edf2f7;
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        .subscription-shell {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 32px 20px 54px;
+        }
+
+        .subscription-hero {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 28px;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .hero-panel {
+            padding: 40px;
+            border-radius: 32px;
+            background: rgba(10, 15, 34, 0.94);
+            border: 1px solid rgba(255,255,255,0.06);
+            box-shadow: 0 42px 120px rgba(6, 11, 25, 0.34);
+        }
+
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 18px;
+            border-radius: 999px;
+            background: rgba(51, 102, 255, 0.16);
+            color: #a6c8ff;
+            font-size: 0.86rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 4vw, 4.6rem);
+            letter-spacing: -0.045em;
+            line-height: 1.02;
+            margin: 0 0 24px;
+        }
+
+        .hero-copy p {
+            color: #cbd5e1;
+            font-size: 1.05rem;
+            line-height: 1.85;
+            max-width: 680px;
+        }
+
+        .hero-action-grid {
+            display: grid;
+            gap: 18px;
+            margin-top: 30px;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(180px, 1fr));
+            gap: 18px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card,
+        .pricing-card,
+        .panel-card,
+        .history-card {
+            border-radius: 28px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(8, 13, 28, 0.9);
+            box-shadow: 0 24px 60px rgba(6, 11, 25, 0.18);
+        }
+
+        .stat-card {
+            padding: 24px;
+            min-height: 156px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .stat-card p {
+            margin: 0 0 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: #8b99b8;
+            font-size: 0.78rem;
+        }
+
+        .stat-card h3,
+        .stat-card strong {
+            margin: 0;
+            font-size: 2rem;
+            color: #f8fafc;
+            line-height: 1.05;
+        }
+
+        .stat-card strong {
+            font-size: 1.8rem;
+            color: #60a5fa;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .pricing-card {
+            padding: 34px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            min-height: 490px;
+        }
+
+        .pricing-card.featured {
+            background: linear-gradient(180deg, rgba(19, 41, 90, 0.96) 0%, rgba(12, 20, 43, 0.97) 100%);
+            border-color: rgba(96, 165, 250, 0.26);
+        }
+
+        .pricing-card .plan-badge {
+            display: inline-flex;
+            padding: 12px 18px;
+            border-radius: 999px;
+            background: rgba(96, 165, 250, 0.16);
+            color: #bfdbfe;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .pricing-card h2 {
+            margin: 0;
+            font-size: 3.4rem;
+            color: #ffffff;
+        }
+
+        .pricing-card .price {
+            font-size: 3.8rem;
+            margin: 12px 0 10px;
+            color: #e2e8f0;
+        }
+
+        .pricing-card p,
+        .pricing-card li {
+            color: #cbd5e1;
+            line-height: 1.9;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            gap: 14px;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 999px;
+            background: rgba(34, 197, 94, 0.16);
+            color: #86efac;
+            font-weight: 800;
+        }
+
+        .pricing-card .cta-btn {
+            margin-top: auto;
+            width: 100%;
+            min-height: 60px;
+            border-radius: 18px;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: transform 0.22s ease, box-shadow 0.22s ease;
+        }
+
+        .pricing-card .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 40px rgba(59, 130, 246, 0.22);
+        }
+
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .panel-card {
+            padding: 32px;
+            display: grid;
+            gap: 20px;
+        }
+
+        .panel-card h3 {
+            margin: 0;
+            font-size: 1.45rem;
+            color: #f8fafc;
+        }
+
+        .panel-card p {
+            margin: 0;
+            color: #a5b4fc;
+            line-height: 1.9;
+        }
+
+        .field-stack {
+            display: grid;
+            gap: 20px;
+        }
+
+        .field-block {
+            display: grid;
+            gap: 10px;
+        }
+
+        .field-block label {
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.14em;
+            color: #94a3b8;
+        }
+
+        .field-block input,
+        .field-block select {
+            width: 100%;
+            min-height: 56px;
+            padding: 16px 18px;
+            border-radius: 18px;
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            background: rgba(15, 23, 42, 0.92);
+            color: #f8fafc;
+            font-size: 1rem;
+        }
+
+        .field-block input::placeholder {
+            color: #94a3b8;
+        }
+
+        .status-message {
+            min-height: 24px;
+            color: #a5b4fc;
+            font-size: 0.95rem;
+        }
+
+        table.history-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 14px;
+        }
+
+        .history-table th,
+        .history-table td {
+            padding: 16px 14px;
+            text-align: left;
+            color: #cbd5e1;
+        }
+
+        .history-table th {
+            font-size: 0.78rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #94a3b8;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+        }
+
+        .history-table tbody tr {
+            background: rgba(15, 23, 42, 0.95);
+            border-radius: 18px;
+            display: block;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .history-table tbody tr td {
+            display: inline-block;
+            width: calc(100% / 6 - 12px);
+        }
+
+        .history-table tbody tr:hover {
+            background: rgba(56, 189, 248, 0.08);
+        }
+
+        .empty-state {
+            padding: 28px;
+            border-radius: 22px;
+            background: rgba(255,255,255,0.04);
+            color: #cbd5e1;
+            text-align: center;
+        }
+
+        .linked-actions {
+            display: inline-flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .linked-actions .cta-btn {
+            width: auto;
+        }
+
+        @media (max-width: 1080px) {
+            .subscription-hero,
+            .bottom-grid,
+            .pricing-grid,
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .history-table tbody tr td {
+                width: 100%;
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="subscription-shell">
+        <section class="subscription-hero">
+            <div class="hero-panel">
+                <span class="hero-pill">Premium Subscription</span>
+                <h1 class="hero-title">Manage your plan with confidence.</h1>
+                <div class="hero-copy">
+                    <p>Unlock the full power of Gwaro Capital with premium automation, license control, and secure payment handling. Your M-Pesa prompt and billing flow are now built to feel modern, polished and trustworthy.</p>
+                </div>
+                <div class="hero-action-grid">
+                    <div class="field-block">
+                        <label>Current Plan</label>
+                        <div class="field-value">{{ subscription.plan or 'No Active Plan' }}</div>
+                    </div>
+                    <div class="field-block">
+                        <label>License Status</label>
+                        <div class="field-value">{% if licenses|length %}{{ licenses[0].status }}{% else %}Inactive{% endif %}</div>
+                    </div>
+                    <div class="field-block">
+                        <label>MT5 Account</label>
+                        <div class="field-value">{{ user.mt5_account or 'Not Connected' }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-panel" style="background: linear-gradient(180deg, rgba(34, 80, 255, 0.12), rgba(15, 23, 42, 0.98));">
+                <p style="text-transform: uppercase; letter-spacing: 0.16em; color: #93c5fd; font-size: 0.82rem; margin-bottom: 18px;">Experience the flagship package</p>
+                <h2 style="margin: 0 0 16px; font-size: 2.4rem; color: #f8fafc;">Designed for serious MT5 traders.</h2>
+                <p style="color: #cbd5e1; line-height: 1.85;">Use the premium dashboard to upgrade plans, confirm payment details, and keep your license in sync with your MT5 account.</p>
+                <div class="linked-actions" style="margin-top: 28px;">
+                    <a href="{{ url_for('dashboard') }}" class="cta-btn start" style="padding: 15px 22px;">Dashboard</a>
+                    <a href="{{ url_for('mt5_page') }}" class="cta-btn" style="background: rgba(255,255,255,0.08); color: #f8fafc; padding: 15px 22px;">MT5 Setup</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="stat-grid">
+            <article class="stat-card">
+                <p>Subscription</p>
+                <h3>{{ subscription.plan or 'None' }}</h3>
+                <strong>{{ subscription.status or 'Status Unknown' }}</strong>
+            </article>
+            <article class="stat-card">
+                <p>Payment Provider</p>
+                <h3>M-Pesa / PayPal / Card</h3>
+                <strong>Fiat-ready</strong>
+            </article>
+            <article class="stat-card">
+                <p>License</p>
+                <h3>{% if licenses|length %}{{ licenses[0].license_key }}{% else %}No License{% endif %}</h3>
+                <strong>{% if licenses|length %}{{ licenses[0].mt5_account }}{% else %}Not linked{% endif %}</strong>
+            </article>
+            <article class="stat-card">
+                <p>Renewal</p>
+                <h3>{% if subscription.expiry_date %}{{ subscription.expiry_date }}{% else %}Lifetime or N/A{% endif %}</h3>
+                <strong>{% if subscription.plan == 'LIFETIME' %}Lifetime Access{% else %}Auto-renew{% endif %}</strong>
+            </article>
+        </section>
+
+        <section class="pricing-grid">
+            <article class="pricing-card featured">
+                <span class="plan-badge">Monthly</span>
+                <h2>${{ pricing['MONTHLY'] | round(0) }}</h2>
+                <p>Flexible access to the full Gwaro Dollar Printer experience with monthly renewal and instant activation.</p>
+                <ul class="pricing-features">
+                    <li>Live MT5 strategy access</li>
+                    <li>Automatic license generation</li>
+                    <li>Priority support</li>
+                    <li>Real-time payment prompt</li>
+                </ul>
+                <a href="#" class="cta-btn start" id="buy-monthly-plan">Subscribe Monthly</a>
+            </article>
+            <article class="pricing-card">
+                <span class="plan-badge">Lifetime</span>
+                <h2>${{ pricing['LIFETIME'] | round(0) }}</h2>
+                <p>One payment for lifetime updates, unlimited trading license validity, and long-term premium access.</p>
+                <ul class="pricing-features">
+                    <li>Lifetime access</li>
+                    <li>No recurring fees</li>
+                    <li>Full bot control</li>
+                    <li>Stable MT5 licensing</li>
+                </ul>
+                <a href="#" class="cta-btn start" id="buy-lifetime-plan">Buy Lifetime</a>
+            </article>
+        </section>
+
+        <div class="bottom-grid">
+            <section class="panel-card">
+                <h3>Payment Provider</h3>
+                <p>Select the provider and, for M-Pesa, submit the prompt so your checkout completes cleanly.</p>
+                <div class="field-stack">
+                    <div class="field-block">
+                        <label for="payment-provider">Provider</label>
+                        <select id="payment-provider">
+                            <option value="mpesa">M-Pesa</option>
+                            <option value="paypal">PayPal</option>
+                            <option value="card">Visa / Mastercard</option>
+                        </select>
+                    </div>
+                    <div class="field-block" id="payment-prompt-block" style="display:none;">
+                        <label for="payment-prompt">M-Pesa Prompt</label>
+                        <input id="payment-prompt" type="text" placeholder="Enter MPESA payment prompt" />
+                    </div>
+                    <div class="field-block">
+                        <label>Payment Status</label>
+                        <div class="field-value"><span class="status-pill">Ready</span></div>
+                    </div>
+                    <div id="payment-message" class="status-message">Choose a plan above to start your premium subscription.</div>
+                </div>
+            </section>
+
+            <section class="panel-card">
+                <h3>License Information</h3>
+                <p>Manage the MT5 license linked to your subscription and keep your bot activation secure.</p>
+                {% if licenses|length %}
+                {% set active_license = licenses[0] %}
+                <div class="field-stack">
+                    <div class="field-block">
+                        <label>License Key</label>
+                        <div class="field-value">{{ active_license.license_key }}</div>
+                    </div>
+                    <div class="field-block">
+                        <label>MT5 Account</label>
+                        <div class="field-value">{{ active_license.mt5_account }}</div>
+                    </div>
+                    <div class="field-block">
+                        <label>Status</label>
+                        <div class="field-value">{{ active_license.status }}</div>
+                    </div>
+                    <div class="field-block">
+                        <label>Activation Date</label>
+                        <div class="field-value">{{ active_license.activated_at.isoformat() if active_license.activated_at else 'N/A' }}</div>
+                    </div>
+                    <div class="field-block">
+                        <label>Expiry Date</label>
+                        <div class="field-value">{{ active_license.expires_at.isoformat() if active_license.expires_at else 'Lifetime' }}</div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="empty-state">No active license. Upgrade or connect an MT5 account to activate.</div>
+                {% endif %}
+            </section>
+        </div>
+
+        <section class="history-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;">
+                <div>
+                    <h3 style="margin:0 0 8px; color:#f8fafc;">Payment History</h3>
+                    <p style="margin:0; color:#94a3b8;">Track recent transactions and verify billing for your subscription.</p>
+                </div>
+                <div class="linked-actions">
+                    <a href="{{ url_for('dashboard') }}" class="cta-btn" style="background: rgba(255,255,255,0.08); color:#f8fafc; padding: 14px 20px;">Back to Dashboard</a>
+                </div>
+            </div>
+            <div style="overflow-x:auto; margin-top:22px;">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Reference</th>
+                            <th>Provider</th>
+                            <th>Plan</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in payments %}
+                        <tr>
+                            <td>{{ row.reference }}</td>
+                            <td>{{ row.provider }}</td>
+                            <td>{{ row.plan_name or '--' }}</td>
+                            <td>{{ row.currency }} {{ '%.2f'|format(row.amount) }}</td>
+                            <td>{{ row.status }}</td>
+                            <td>{{ row.created_at.isoformat() }}</td>
+                        </tr>
+                        {% else %}
+                        <tr class="no-data-row"><td colspan="6">No payments found.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function token() {
+            const n = document.querySelector('meta[name="csrf-token"]');
+            return n ? n.content : "";
+        }
+
+        function notify(message) {
+            const node = document.getElementById("payment-message");
+            if (node) node.innerText = message;
+        }
+
+        async function upgrade(plan) {
+            const provider = document.getElementById("payment-provider")?.value || "mpesa";
+            const prompt = document.getElementById("payment-prompt")?.value.trim() || "";
+            const response = await fetch("/api/subscription/upgrade", {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "X-CSRF-Token": token() },
+                body: JSON.stringify({ plan, provider, prompt })
+            });
+            const data = await response.json();
+            notify(data.message || "Update complete");
+            if (data.ok) window.location.reload();
+        }
+
+        document.getElementById("buy-monthly-plan")?.addEventListener("click", (e) => {
+            e.preventDefault();
+            upgrade("MONTHLY");
+        });
+        document.getElementById("buy-lifetime-plan")?.addEventListener("click", (e) => {
+            e.preventDefault();
+            upgrade("LIFETIME");
+        });
+
+        function updatePromptVisibility() {
+            const provider = document.getElementById("payment-provider")?.value || "mpesa";
+            const promptBlock = document.getElementById("payment-prompt-block");
+            if (promptBlock) {
+                promptBlock.style.display = provider === "mpesa" ? "block" : "none";
+            }
+        }
+
+        document.getElementById("payment-provider")?.addEventListener("change", updatePromptVisibility);
+        updatePromptVisibility();
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+{% extends "dashboard.html" %}
+
+{% block title %}Markets | Gwaro Capital{% endblock %}
+
+{% block content %}
+<section class="hero-strip">
+    <div class="hero-copy">
+        <h3>Markets</h3>
+        <p>Overview of live markets and instrument snapshots.</p>
+    </div>
+    <div class="hero-pill">Live</div>
+</section>
+
+<div class="chart-card" style="margin-top: 16px;">
+    <div class="panel-heading">
+        <h3>Markets</h3>
+    </div>
+    <div class="table-scroll">
+        <table class="positions-table">
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Bid</th>
+                    <th>Ask</th>
+                    <th>Spread</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if market %}
+                    {% for item in market %}
+                    <tr>
+                        <td>{{ item.symbol }}</td>
+                        <td>{{ "%.5f"|format(item.bid) if item.bid is not none else 'N/A' }}</td>
+                        <td>{{ "%.5f"|format(item.ask) if item.ask is not none else 'N/A' }}</td>
+                        <td>{{ "%.5f"|format((item.ask - item.bid) if item.ask is not none and item.bid is not none else 0.0) }}</td>
+                        <td>{{ 'Live' if item.bid and item.ask else 'Unavailable' }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5">No market data available.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

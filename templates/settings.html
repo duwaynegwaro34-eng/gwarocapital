@@ -1,0 +1,55 @@
+{% extends "dashboard.html" %}
+
+{% block title %}Settings | Gwaro Capital{% endblock %}
+
+{% block content %}
+<section class="hero-strip">
+    <div class="hero-copy">
+        <h3>Settings</h3>
+        <p>Update account preferences, security settings, and MT5 connection details from one place.</p>
+    </div>
+    <div class="hero-pill">Manage</div>
+</section>
+
+<div class="panel" style="margin-top: 16px; max-width: 760px;">
+    <div class="panel-heading">
+        <h3><i class="fas fa-user-cog"></i> Account Settings</h3>
+    </div>
+    <form class="form-panel" method="POST" action="{{ url_for('settings') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" value="{{ user.username if user else '' }}" placeholder="Username">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" value="{{ user.email if user else '' }}" placeholder="Email address">
+        <label for="password">New Password</label>
+        <input type="password" id="password" name="password" placeholder="••••••••">
+        <button type="submit" class="cta-btn start">Save Changes</button>
+    </form>
+</div>
+
+<div class="panel" style="margin-top: 16px; max-width: 760px;">
+    <div class="panel-heading">
+        <h3><i class="fas fa-wallet"></i> MT5 Connection Settings</h3>
+    </div>
+    <form class="form-panel" method="POST" action="{{ url_for('settings') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <label for="mt5_name">MT5 Account Name</label>
+        <input type="text" id="mt5_name" name="mt5_name" value="{{ user.mt5_name if user else '' }}" placeholder="MT5 account name">
+        <label for="mt5_account">MT5 Account Number</label>
+        <input type="text" id="mt5_account" name="mt5_account" value="{{ user.mt5_account if user else '' }}" placeholder="12345678">
+        <label for="mt5_server">MT5 Server</label>
+        <input type="text" id="mt5_server" name="mt5_server" value="{{ user.mt5_server if user else '' }}" placeholder="Server name">
+        <button type="submit" class="cta-btn start">Save MT5 Settings</button>
+    </form>
+</div>
+
+<div class="panel" style="margin-top: 16px; max-width: 760px;">
+    <div class="panel-heading">
+        <h3><i class="fas fa-shield-alt"></i> Security</h3>
+    </div>
+    <div class="mini-card">
+        <p>Two-factor authentication and password policies are managed here.</p>
+        <p>Account access is safeguarded via secure session and encrypted credentials.</p>
+    </div>
+</div>
+{% endblock %}

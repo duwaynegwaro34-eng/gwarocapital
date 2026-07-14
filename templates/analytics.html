@@ -1,0 +1,99 @@
+{% extends "dashboard.html" %}
+
+{% block title %}Analytics | Gwaro Capital{% endblock %}
+
+{% block content %}
+<section class="hero-strip">
+    <div class="hero-copy">
+        <h3>Market Analytics</h3>
+        <p>Track live price action, market trends, and performance analytics across your active instruments.</p>
+    </div>
+    <div class="hero-pill">Insights</div>
+</section>
+
+<section class="stats-grid">
+    <article class="stat-card">
+        <div class="icon blue"><i class="fas fa-chart-line"></i></div>
+        <div>
+            <p>Active Symbols</p>
+            <h3>{{ market|length if market else 0 }}</h3>
+        </div>
+    </article>
+    <article class="stat-card">
+        <div class="icon green"><i class="fas fa-bolt"></i></div>
+        <div>
+            <p>Volatility Score</p>
+            <h3>72%</h3>
+        </div>
+    </article>
+    <article class="stat-card">
+        <div class="icon orange"><i class="fas fa-wave-square"></i></div>
+        <div>
+            <p>Trend Strength</p>
+            <h3>Moderate</h3>
+        </div>
+    </article>
+    <article class="stat-card">
+        <div class="icon purple"><i class="fas fa-chart-area"></i></div>
+        <div>
+            <p>Signal Quality</p>
+            <h3>High</h3>
+        </div>
+    </article>
+</section>
+
+<div class="chart-card" style="margin-top: 16px;">
+    <div class="panel-heading">
+        <h3><i class="fas fa-chart-candlestick"></i> Market Snapshot</h3>
+    </div>
+    <div class="table-scroll">
+        <table class="positions-table">
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Bid</th>
+                    <th>Ask</th>
+                    <th>Spread</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if market %}
+                    {% for item in market %}
+                    <tr>
+                        <td>{{ item.symbol }}</td>
+                        <td>{{ "%.5f"|format(item.bid) if item.bid is not none else 'N/A' }}</td>
+                        <td>{{ "%.5f"|format(item.ask) if item.ask is not none else 'N/A' }}</td>
+                        <td>{{ "%.5f"|format((item.ask - item.bid) if item.ask is not none and item.bid is not none else 0.0) }}</td>
+                        <td>{{ 'Live' if item.bid and item.ask else 'Unavailable' }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5">No market data available.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="chart-grid" style="margin-top: 16px;">
+    <div class="chart-card">
+        <h4>Price Momentum</h4>
+        <canvas id="momentum-chart"></canvas>
+    </div>
+    <div class="chart-card">
+        <h4>Trade Volume</h4>
+        <canvas id="volume-chart"></canvas>
+    </div>
+    <div class="chart-card">
+        <h4>Volatility Index</h4>
+        <canvas id="volatility-chart"></canvas>
+    </div>
+    <div class="chart-card">
+        <h4>Signal Distribution</h4>
+        <canvas id="signal-distribution-chart"></canvas>
+    </div>
+</div>
+{% endblock %}

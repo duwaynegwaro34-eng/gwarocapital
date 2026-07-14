@@ -80,6 +80,15 @@ class AuthFlowTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"login", response.data.lower())
 
+    def test_mt5_summary_endpoint_reports_connection_state(self):
+        response = self.client.get("/api/mt5/summary")
+        self.assertEqual(response.status_code, 200)
+
+        payload = response.get_json()
+        self.assertIn("status", payload)
+        self.assertIn("connected", payload)
+        self.assertIn("balance", payload)
+
 
 if __name__ == "__main__":
     unittest.main()

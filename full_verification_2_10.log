@@ -1,0 +1,474 @@
+test_dashboard_requires_authentication (tests.test_auth.AuthFlowTests.test_dashboard_requires_authentication) ... ok
+test_duplicate_registration_shows_friendly_message (tests.test_auth.AuthFlowTests.test_duplicate_registration_shows_friendly_message) ... C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\schema.py:3623: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+ok
+test_mt5_summary_endpoint_reports_connection_state (tests.test_auth.AuthFlowTests.test_mt5_summary_endpoint_reports_connection_state) ... ok
+test_register_login_and_logout (tests.test_auth.AuthFlowTests.test_register_login_and_logout) ... C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py:221: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  return datetime.utcnow()
+C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py:190: LegacyAPIWarning: The Query.get() method is considered legacy as of the 1.x series of SQLAlchemy and becomes a legacy construct in 2.0. The method is now available as Session.get() (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+  return User.query.get(int(user_id))
+ok
+test_activity_log_and_legacy_bot_status_route (tests.test_bot_manager_api.BotManagerApiTests.test_activity_log_and_legacy_bot_status_route) ... ok
+test_bot_select_and_start_stop (tests.test_bot_manager_api.BotManagerApiTests.test_bot_select_and_start_stop) ... ok
+test_bot_status_endpoint (tests.test_bot_manager_api.BotManagerApiTests.test_bot_status_endpoint) ... ok
+test_stop_only_selected_bot_guard (tests.test_bot_manager_api.BotManagerApiTests.test_stop_only_selected_bot_guard) ... ok
+test_forgot_password_request_creates_token_and_sends_email (tests.test_forgot_password.ForgotPasswordTests.test_forgot_password_request_creates_token_and_sends_email) ... FAIL
+test_forgot_password_shows_error_when_email_send_fails (tests.test_forgot_password.ForgotPasswordTests.test_forgot_password_shows_error_when_email_send_fails) ... [2026-07-11 01:31:20,651] ERROR in app: Failed to send password reset email
+Traceback (most recent call last):
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py", line 480, in send_password_reset_email
+    with smtp_class(
+         ~~~~~~~~~~^
+        app_settings.smtp_host,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        app_settings.smtp_port,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        timeout=app_settings.smtp_timeout_seconds,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ) as smtp:
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py", line 1169, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py", line 1173, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py", line 1234, in _execute_mock_call
+    raise effect
+RuntimeError: smtp offline
+ok
+test_forgot_password_unknown_email_keeps_generic_response (tests.test_forgot_password.ForgotPasswordTests.test_forgot_password_unknown_email_keeps_generic_response) ... ok
+test_reset_password_rejects_expired_token (tests.test_forgot_password.ForgotPasswordTests.test_reset_password_rejects_expired_token) ... ok
+test_reset_password_updates_password_and_invalidates_token (tests.test_forgot_password.ForgotPasswordTests.test_reset_password_updates_password_and_invalidates_token) ... ok
+test_mt5_account_status_endpoint_returns_disconnected_payload (tests.test_mt5.MT5EndpointTests.test_mt5_account_status_endpoint_returns_disconnected_payload) ... ok
+test_mt5_status_endpoint_is_available (tests.test_mt5.MT5EndpointTests.test_mt5_status_endpoint_is_available) ... ok
+test_mt5_connect_endpoint_validation (tests.test_mt5_connect_api.MT5ConnectApiTests.test_mt5_connect_endpoint_validation) ... ok
+test_mt5_disconnect_endpoint_exists (tests.test_mt5_connect_api.MT5ConnectApiTests.test_mt5_disconnect_endpoint_exists) ... ok
+test_mt5_status_endpoint_exists (tests.test_mt5_connect_api.MT5ConnectApiTests.test_mt5_status_endpoint_exists) ... ok
+test_logout_redirects_to_login (tests.test_navigation.NavigationTests.test_logout_redirects_to_login) ... ok
+test_sidebar_routes_render_for_authenticated_users (tests.test_navigation.NavigationTests.test_sidebar_routes_render_for_authenticated_users) ... ok
+test_ai_analysis_endpoint_shape (tests.test_phase7_ai_analytics.Phase7AnalyticsTests.test_ai_analysis_endpoint_shape) ... C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_phase7_ai_analytics.py:31: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  now = datetime.utcnow()
+ok
+test_assistant_summary_contains_required_sections (tests.test_phase7_ai_analytics.Phase7AnalyticsTests.test_assistant_summary_contains_required_sections) ... ERROR
+test_performance_summary_endpoint_contains_metrics (tests.test_phase7_ai_analytics.Phase7AnalyticsTests.test_performance_summary_endpoint_contains_metrics) ... ERROR
+test_risk_summary_endpoint_shape (tests.test_phase7_ai_analytics.Phase7AnalyticsTests.test_risk_summary_endpoint_shape) ... ERROR
+test_trading_journal_filter_by_bot (tests.test_phase7_ai_analytics.Phase7AnalyticsTests.test_trading_journal_filter_by_bot) ... FAIL
+test_admin_dashboard_and_metrics (tests.test_phase8_subscription_admin.Phase8SubscriptionAdminTests.test_admin_dashboard_and_metrics) ... ok
+test_admin_license_management_endpoints (tests.test_phase8_subscription_admin.Phase8SubscriptionAdminTests.test_admin_license_management_endpoints) ... C:\Users\Deca\OneDrive\Desktop\gwaro-capital\services\payment_service.py:30: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  "created_at": datetime.utcnow().isoformat(),
+C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py:1544: LegacyAPIWarning: The Query.get() method is considered legacy as of the 1.x series of SQLAlchemy and becomes a legacy construct in 2.0. The method is now available as Session.get() (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+  row = License.query.get(license_id)
+ok
+test_health_endpoint_available (tests.test_phase8_subscription_admin.Phase8SubscriptionAdminTests.test_health_endpoint_available) ... ok
+test_license_validation_endpoint (tests.test_phase8_subscription_admin.Phase8SubscriptionAdminTests.test_license_validation_endpoint) ... C:\Users\Deca\OneDrive\Desktop\gwaro-capital\services\payment_service.py:64: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  "created_at": datetime.utcnow().isoformat(),
+ok
+test_payment_history_endpoint (tests.test_phase8_subscription_admin.Phase8SubscriptionAdminTests.test_payment_history_endpoint) ... C:\Users\Deca\OneDrive\Desktop\gwaro-capital\services\payment_service.py:47: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  "created_at": datetime.utcnow().isoformat(),
+ok
+test_subscription_upgrade_and_cancel_flow (tests.test_phase8_subscription_admin.Phase8SubscriptionAdminTests.test_subscription_upgrade_and_cancel_flow) ... ok
+test_trading_engine_emits_trade_open_and_close_events (tests.test_trading_engine.TradingEngineTests.test_trading_engine_emits_trade_open_and_close_events) ... ok
+test_trading_engine_sets_error_when_mt5_unavailable (tests.test_trading_engine.TradingEngineTests.test_trading_engine_sets_error_when_mt5_unavailable) ... ok
+
+======================================================================
+ERROR: test_assistant_summary_contains_required_sections (tests.test_phase7_ai_analytics.Phase7AnalyticsTests.test_assistant_summary_contains_required_sections)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 2127, in _exec_insertmany_context
+    dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: trade_journal_entry
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_phase7_ai_analytics.py", line 58, in setUp
+    app_module.db.session.commit()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\scoping.py", line 596, in commit
+    return self._proxied.commit()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        insert,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1144, in _emit_insert_statements
+    result = connection.execute(
+        statement, multiparams, execution_options=execution_options
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_insertmany_context(dialect, context)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 2135, in _exec_insertmany_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e,
+        ^^
+    ...<4 lines>...
+        is_sub_exec=True,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 2127, in _exec_insertmany_context
+    dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: trade_journal_entry
+[SQL: INSERT INTO trade_journal_entry (journal_event_id, ticket, symbol, entry_price, exit_price, profit_loss, open_time, close_time, strategy_bot, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: ('seed-1', '101', 'XAUUSD', 2300.0, 2304.2, 84.0, '2026-07-10 19:36:33.466716', '2026-07-10 20:36:33.466716', 'Hybrid Bot', 'CLOSED')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+======================================================================
+ERROR: test_performance_summary_endpoint_contains_metrics (tests.test_phase7_ai_analytics.Phase7AnalyticsTests.test_performance_summary_endpoint_contains_metrics)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: database is locked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_phase7_ai_analytics.py", line 21, in setUp
+    app_module.db.drop_all()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask_sqlalchemy\extension.py", line 917, in drop_all
+    self._call_for_binds(bind_key, "drop_all")
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask_sqlalchemy\extension.py", line 881, in _call_for_binds
+    getattr(metadata, op_name)(bind=engine)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\schema.py", line 5958, in drop_all
+    bind._run_ddl_visitor(
+    ~~~~~~~~~~~~~~~~~~~~~^
+        ddl.SchemaDropper, self, checkfirst=checkfirst, tables=tables
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 3270, in _run_ddl_visitor
+    conn._run_ddl_visitor(visitorcallable, element, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 2469, in _run_ddl_visitor
+    ).traverse_single(element)
+      ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\visitors.py", line 661, in traverse_single
+    return meth(obj, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 1143, in visit_metadata
+    self.traverse_single(
+    ~~~~~~~~~~~~~~~~~~~~^
+        table,
+        ^^^^^^
+    ...<2 lines>...
+        _ignore_sequences=seq_coll,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\visitors.py", line 661, in traverse_single
+    return meth(obj, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 1210, in visit_table
+    DropTable(table)._invoke_with(self.connection)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 322, in _invoke_with
+    return bind.execute(self)
+           ~~~~~~~~~~~~^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\ddl.py", line 188, in _execute_on_connection
+    return connection._execute_ddl(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1532, in _execute_ddl
+    ret = self._execute_context(
+        dialect,
+    ...<4 lines>...
+        compiled,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) database is locked
+[SQL: 
+DROP TABLE audit_log]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+======================================================================
+ERROR: test_risk_summary_endpoint_shape (tests.test_phase7_ai_analytics.Phase7AnalyticsTests.test_risk_summary_endpoint_shape)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: database is locked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_phase7_ai_analytics.py", line 29, in setUp
+    app_module.db.session.commit()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\scoping.py", line 596, in commit
+    return self._proxied.commit()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        insert,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+        statement,
+        params,
+        execution_options=execution_options,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) database is locked
+[SQL: INSERT INTO user (username, email, password, mt5_account, mt5_server, mt5_name, mt5_connected) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('phase7', 'phase7@example.com', '$2b$12$Z9P69k/RcCgkrV3/Vg1kTuttOLzyudlfQP56oo23SyM/epqBuLd1e', None, None, None, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+======================================================================
+FAIL: test_forgot_password_request_creates_token_and_sends_email (tests.test_forgot_password.ForgotPasswordTests.test_forgot_password_request_creates_token_and_sends_email)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py", line 1432, in patched
+    return func(*newargs, **newkeywargs)
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_forgot_password.py", line 115, in test_forgot_password_request_creates_token_and_sends_email
+    self.assertIn(record.token, email_message.as_string())
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'jEbKGx4z202oVOzZNQU8AADAvWekqWJxV75yvi_-88k' not found in 'Subject: Gwaro Capital Password Reset\nFrom: GWARO Capital <noreply@example.com>\nTo: resetter@example.com\nMIME-Version: 1.0\nContent-Type: multipart/alternative;\n boundary="===============5036119446008964758=="\n\n--===============5036119446008964758==\nContent-Type: text/plain; charset="utf-8"\nContent-Transfer-Encoding: quoted-printable\n\nGWARO Capital Password Reset\n\nHello resetter,\n\nWe received a request to reset your GWARO Capital password.\n\nVerification code: 125726\nReset link: http://localhost/reset-password/jEbKGx4z202oVOzZNQU8AADAvWekqWJxV=\n75yvi_-88k\n\nThis reset link and code expire in 30 minutes.\n\nIf you did not request a password reset, you can safely ignore this email.\n\n--===============5036119446008964758==\nContent-Type: text/html; charset="utf-8"\nContent-Transfer-Encoding: quoted-printable\nMIME-Version: 1.0\n\n<!DOCTYPE html>\n<html lang=3D"en">\n<head>\n    <meta charset=3D"UTF-8">\n    <meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-scale=3D=\n1.0">\n    <title>GWARO Capital Password Reset</title>\n</head>\n<body style=3D"margin:0;padding:24px;background:#0b1220;color:#e5ecf6;font-fa=\nmily:Arial,sans-serif;">\n    <div style=3D"max-width:640px;margin:0 auto;background:#111a2e;border:1px=\n solid #22314f;border-radius:16px;padding:32px;">\n        <div style=3D"font-size:12px;letter-spacing:0.24em;text-transform:upp=\nercase;color:#8aa0c8;margin-bottom:16px;">GWARO Capital</div>\n        <h1 style=3D"margin:0 0 16px;font-size:28px;line-height:1.2;color:#f8=\nfbff;">Reset Your Password</h1>\n        <p style=3D"margin:0 0 16px;line-height:1.6;color:#d0dbef;">Hello res=\netter,</p>\n        <p style=3D"margin:0 0 16px;line-height:1.6;color:#d0dbef;">We receiv=\ned a request to reset your GWARO Capital password. Use the verification code =\nbelow or open the secure reset link.</p>\n        <div style=3D"margin:24px 0;padding:16px;border-radius:12px;backgroun=\nd:#0b1220;border:1px solid #22314f;">\n            <div style=3D"font-size:12px;text-transform:uppercase;letter-spac=\ning:0.12em;color:#8aa0c8;margin-bottom:8px;">Verification Code</div>\n            <div style=3D"font-size:32px;font-weight:700;letter-spacing:0.24e=\nm;color:#f8fbff;">125726</div>\n        </div>\n        <p style=3D"margin:0 0 24px;line-height:1.6;color:#d0dbef;">This rese=\nt code and link expire in 30 minutes.</p>\n        <p style=3D"margin:0 0 24px;">\n            <a href=3D"http://localhost/reset-password/jEbKGx4z202oVOzZNQU8AA=\nDAvWekqWJxV75yvi_-88k" style=3D"display:inline-block;padding:14px 24px;border=\n-radius:999px;background:#d5a94f;color:#111a2e;font-weight:700;text-decoratio=\nn:none;">Reset Password</a>\n        </p>\n        <p style=3D"margin:0 0 8px;line-height:1.6;color:#d0dbef;word-break:b=\nreak-all;">If the button does not work, use this link:</p>\n        <p style=3D"margin:0 0 24px;line-height:1.6;word-break:break-all;"><a=\n href=3D"http://localhost/reset-password/jEbKGx4z202oVOzZNQU8AADAvWekqWJxV75y=\nvi_-88k" style=3D"color:#9fc2ff;">http://localhost/reset-password/jEbKGx4z202=\noVOzZNQU8AADAvWekqWJxV75yvi_-88k</a></p>\n        <p style=3D"margin:0;line-height:1.6;color:#8aa0c8;">If you did not r=\nequest this password reset, you can safely ignore this email.</p>\n    </div>\n</body>\n</html>\n\n--===============5036119446008964758==--\n'
+
+======================================================================
+FAIL: test_trading_journal_filter_by_bot (tests.test_phase7_ai_analytics.Phase7AnalyticsTests.test_trading_journal_filter_by_bot)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_phase7_ai_analytics.py", line 100, in test_trading_journal_filter_by_bot
+    self.assertEqual(response.status_code, 200)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 302 != 200
+
+----------------------------------------------------------------------
+Ran 33 tests in 609.137s
+
+FAILED (failures=2, errors=3)
+<sys>:0: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x000001BCC5C8AF20>
+__EXIT_CODE__:0

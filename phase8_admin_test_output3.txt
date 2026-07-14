@@ -1,0 +1,12 @@
+test_admin_dashboard_and_metrics (tests.test_phase8_subscription_admin.Phase8SubscriptionAdminTests.test_admin_dashboard_and_metrics) ... ok
+test_admin_license_management_endpoints (tests.test_phase8_subscription_admin.Phase8SubscriptionAdminTests.test_admin_license_management_endpoints) ... ok
+test_developer_license_bypass_allows_missing_license (tests.test_phase8_subscription_admin.Phase8SubscriptionAdminTests.test_developer_license_bypass_allows_missing_license) ... ok
+test_health_endpoint_available (tests.test_phase8_subscription_admin.Phase8SubscriptionAdminTests.test_health_endpoint_available) ... ok
+test_license_validation_endpoint (tests.test_phase8_subscription_admin.Phase8SubscriptionAdminTests.test_license_validation_endpoint) ... ok
+test_payment_history_endpoint (tests.test_phase8_subscription_admin.Phase8SubscriptionAdminTests.test_payment_history_endpoint) ... ok
+test_subscription_upgrade_and_cancel_flow (tests.test_phase8_subscription_admin.Phase8SubscriptionAdminTests.test_subscription_upgrade_and_cancel_flow) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 95.316s
+
+OK

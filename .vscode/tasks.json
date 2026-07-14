@@ -1,0 +1,53 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "phase8-full-tests",
+			"type": "shell",
+			"command": "py -3 -m unittest discover -s tests -v",
+			"isBackground": false
+		},
+		{
+			"label": "bot-control-targeted-tests",
+			"type": "shell",
+			"command": "py -3 -m unittest tests.test_bot_control_actions tests.test_bot_manager_api tests.test_dynamic_bot_discovery -v",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "debug-bot-manager",
+			"type": "shell",
+			"command": "py -3 -c \"import os, sys, tempfile; from pathlib import Path; from unittest.mock import Mock, patch; sys.path.insert(0, os.getcwd()); from services.bot_manager import BotManager; class FakeBotModule: def stop(self): return None; manager = BotManager(FakeBotModule()); with patch('services.bot_manager.mt5_manager.connection_status', return_value={'connected': True, 'status': 'Connected'}): discovered = manager.discover_available_bots(experts_dir='C:/temp')\"",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "bot-control-targeted-tests",
+			"type": "shell",
+			"command": "py -3 -m unittest tests.test_bot_control_actions tests.test_bot_manager_api tests.test_dynamic_bot_discovery -v",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "bot-control-targeted-tests",
+			"type": "shell",
+			"command": "py -3 -m unittest tests.test_bot_control_actions tests.test_bot_manager_api tests.test_dynamic_bot_discovery -v",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "bot-control-targeted-tests",
+			"type": "shell",
+			"command": "py -3 -m unittest tests.test_bot_control_actions tests.test_bot_manager_api tests.test_dynamic_bot_discovery -v",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "bot-control-targeted-tests",
+			"type": "shell",
+			"command": "py -3 -m unittest tests.test_bot_control_actions tests.test_bot_manager_api tests.test_dynamic_bot_discovery -v",
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}

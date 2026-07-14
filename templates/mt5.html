@@ -1,49 +1,306 @@
-<!DOCTYPE html>
-<html>
+{% extends "dashboard.html" %}
+{% block title %}MT5 Dashboard{% endblock %}
 
-<head>
-    <title>Connect MT5</title>
-</head>
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>MT5 Trading Dashboard</h1>
+        <p>Monitor your live MT5 account, positions, performance metrics, and bot status from one premium console.</p>
+    </div>
+    <a href="{{ url_for('dashboard') }}" class="secondary-btn">Back to Dashboard</a>
+</div>
 
-<body>
+{% if connection_error %}
+<div class="notification-item error" style="margin-bottom: 16px;">
+    <div class="notification-type">Connection Warning</div>
+    <div>{{ connection_error }}</div>
+</div>
+{% endif %}
 
-<h1>Connect Your MT5 Account</h1>
+<div class="content-grid">
+    <div class="wide-panel">
+        <div class="metric-card">
+            <h4>Account Overview</h4>
+            <div class="account-grid">
+                <div>
+                    <p>Account Name</p>
+                    <h4 id="account-name-display">{{ user.mt5_name or 'Not configured' }}</h4>
+                </div>
+                <div>
+                    <p>Account Number</p>
+                    <h4 id="account-number-display">{{ user.mt5_account or 'Not configured' }}</h4>
+                </div>
+                <div>
+                    <p>Server</p>
+                    <h4 id="server-name-display">{{ user.mt5_server or 'Not configured' }}</h4>
+                </div>
+                <div>
+                    <p>Status</p>
+                    <h4 id="connection-status-display">{{ 'Connected' if is_connected else 'Disconnected' }}</h4>
+                </div>
+                <div>
+                    <p>Bot Status</p>
+                    <h4 id="bot-status-display">{{ bot_status }}</h4>
+                </div>
+            </div>
+        </div>
 
-<form method="POST">
+        <div class="metric-grid">
+            <div class="metric-card">
+                <p>Balance</p>
+                <h4 id="mt5-balance">{{ mt5.balance | default('N/A') }}</h4>
+            </div>
+            <div class="metric-card">
+                <p>Equity</p>
+                <h4 id="mt5-equity">{{ mt5.equity | default('N/A') }}</h4>
+            </div>
+            <div class="metric-card">
+                <p>Free Margin</p>
+                <h4 id="mt5-free-margin">{{ mt5.free_margin | default('N/A') }}</h4>
+            </div>
+            <div class="metric-card">
+                <p>Used Margin</p>
+                <h4 id="mt5-margin">{{ mt5.margin | default('N/A') }}</h4>
+            </div>
+            <div class="metric-card">
+                <p>Profit (Today)</p>
+                <h4 id="mt5-profit">{{ mt5.profit | default('N/A') }}</h4>
+            </div>
+        </div>
+    </div>
 
-    <input
-        type="text"
-        name="account"
-        placeholder="MT5 Account Number"
-        required
-    >
+    <div class="wide-panel">
+        <div class="bot-performance-card {{ 'best' if bot_running else '' }}">
+            <h4>MT5 Bot Control</h4>
+            <p>Current automation mode and health status.</p>
+            <div class="account-grid">
+                <div>
+                    <p>Operational Mode</p>
+                    <h4>{{ bot_current_name }}</h4>
+                </div>
+                <div>
+                    <p>Connected Terminal</p>
+                    <h4>{{ 'Yes' if is_connected else 'No' }}</h4>
+                </div>
+            </div>
+        </div>
 
-    <br><br>
+        <div class="metric-card" style="margin-top: 12px;">
+            <h4>MT5 Connection</h4>
+            <div class="form-panel">
+                <input type="hidden" id="csrf-token" value="{{ csrf_token }}">
+                <label for="name">Account Name</label>
+                <input type="text" id="name" name="name" value="{{ user.mt5_name or '' }}" placeholder="Your MT5 account name">
+                <label for="account">Account Number</label>
+                <input type="text" id="account" name="account" value="{{ user.mt5_account or '' }}" placeholder="12345678">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" value="" placeholder="MT5 account password">
+                <label for="server">Server</label>
+                <input type="text" id="server" name="server" value="{{ user.mt5_server or '' }}" placeholder="MT5 Server Name">
+                <div style="margin-top:10px; display:flex; gap:8px;">
+                    <button type="button" id="mt5-connect-btn" class="cta-btn start">Connect</button>
+                    <button type="button" id="mt5-disconnect-btn" class="cta-btn stop">Disconnect</button>
+                    <form method="POST" action="{{ url_for('mt5_page') }}" style="display:inline; margin-left:8px;">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                        <input type="hidden" name="name" id="save-name" value="{{ user.mt5_name or '' }}">
+                        <input type="hidden" name="account" id="save-account" value="{{ user.mt5_account or '' }}">
+                        <input type="hidden" name="server" id="save-server" value="{{ user.mt5_server or '' }}">
+                        <button type="submit" class="cta-btn">Save Profile</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <input
-        type="text"
-        name="server"
-        placeholder="Broker Server"
-        required
-    >
+<div class="chart-grid">
+    <div class="chart-card">
+        <h4>Open Positions</h4>
+        <div class="table-scroll">
+            <table class="positions-table">
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Type</th>
+                        <th>Volume</th>
+                        <th>Price</th>
+                        <th>Swap</th>
+                        <th>Profit</th>
+                    </tr>
+                </thead>
+                <tbody id="positions-body">
+                    {% if positions %}
+                        {% for pos in positions %}
+                        <tr>
+                            <td>{{ pos.symbol }}</td>
+                            <td>{{ pos.type }}</td>
+                            <td>{{ pos.volume }}</td>
+                            <td>{{ pos.current_price or pos.price }}</td>
+                            <td>{{ pos.swap }}</td>
+                            <td>{{ pos.profit }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="6">No open positions found.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <br><br>
+    <div class="chart-card">
+        <h4>Trade History</h4>
+        <div class="table-scroll">
+            <table class="positions-table trade-history-table">
+                <thead>
+                    <tr>
+                        <th>Order</th>
+                        <th>Symbol</th>
+                        <th>Type</th>
+                        <th>Volume</th>
+                        <th>Open Time</th>
+                        <th>Close Time</th>
+                        <th>Profit</th>
+                    </tr>
+                </thead>
+                <tbody id="trade-history-body">
+                    {% if history %}
+                        {% for item in history %}
+                        <tr>
+                            <td>{{ item.ticket or item.order }}</td>
+                            <td>{{ item.symbol }}</td>
+                            <td>{{ item.type }}</td>
+                            <td>{{ item.volume }}</td>
+                            <td>{{ item.open_time }}</td>
+                            <td>{{ item.close_time }}</td>
+                            <td>{{ item.profit }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="7">No recent trades available.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    (function(){
+        const csrftoken = document.getElementById('csrf-token') ? document.getElementById('csrf-token').value : '';
 
-    <input
-        type="text"
-        name="name"
-        placeholder="Account Name"
-        required
-    >
+        function safeText(v){ return v === null || v === undefined ? 'N/A' : v; }
 
-    <br><br>
+        async function fetchSummary(){
+            const res = await fetch('/api/mt5/summary');
+            if(!res.ok) return null;
+            return res.json();
+        }
 
-    <button type="submit">
-        Connect MT5
-    </button>
+        async function fetchPositions(){
+            const res = await fetch('/api/mt5/positions');
+            if(!res.ok) return [];
+            return res.json();
+        }
 
-</form>
+        async function fetchHistory(){
+            const res = await fetch('/api/mt5/history');
+            if(!res.ok) return [];
+            return res.json();
+        }
 
-</body>
+        function updateSummaryUI(data){
+            if(!data) return;
+            document.getElementById('account-name-display').textContent = safeText(data.account_name || document.getElementById('account-name-display').textContent);
+            document.getElementById('account-number-display').textContent = safeText(data.account || document.getElementById('account-number-display').textContent);
+            document.getElementById('server-name-display').textContent = safeText(data.server || document.getElementById('server-name-display').textContent);
+            document.getElementById('connection-status-display').textContent = data.connected ? 'Connected' : 'Disconnected';
+            document.getElementById('mt5-balance').textContent = safeText(data.balance);
+            document.getElementById('mt5-equity').textContent = safeText(data.equity);
+            document.getElementById('mt5-free-margin').textContent = safeText(data.free_margin);
+            document.getElementById('mt5-margin').textContent = safeText(data.margin);
+            document.getElementById('mt5-profit').textContent = safeText(data.profit);
+        }
 
-</html>
+        function renderPositions(list){
+            const body = document.getElementById('positions-body');
+            if(!body) return;
+            body.innerHTML = '';
+            if(!list || list.length === 0){
+                body.innerHTML = '<tr><td colspan="6">No open positions found.</td></tr>';
+                return;
+            }
+            for(const pos of list){
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${pos.symbol}</td><td>${pos.type}</td><td>${pos.volume}</td><td>${pos.current_price || pos.price || 'N/A'}</td><td>${pos.swap || ''}</td><td>${pos.profit}</td>`;
+                body.appendChild(tr);
+            }
+        }
+
+        function renderHistory(list){
+            const body = document.getElementById('trade-history-body');
+            if(!body) return;
+            body.innerHTML = '';
+            if(!list || list.length === 0){
+                body.innerHTML = '<tr><td colspan="7">No recent trades available.</td></tr>';
+                return;
+            }
+            for(const item of list){
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${item.ticket || item.order || ''}</td><td>${item.symbol}</td><td>${item.type}</td><td>${item.volume}</td><td>${item.open_time || item.time || ''}</td><td>${item.close_time || ''}</td><td>${item.profit}</td>`;
+                body.appendChild(tr);
+            }
+        }
+
+        async function connectMt5(){
+            const login = document.getElementById('account').value.trim();
+            const password = document.getElementById('password').value;
+            const server = document.getElementById('server').value.trim();
+            const res = await fetch('/api/mt5/connect', {method:'POST', headers:{'Content-Type':'application/json','X-CSRF-Token':csrftoken}, body: JSON.stringify({login, password, server})});
+            const payload = await res.json();
+            if(payload.ok){
+                // refresh UI data
+                const summary = await fetchSummary();
+                updateSummaryUI(summary);
+                const positions = await fetchPositions();
+                renderPositions(positions);
+                const history = await fetchHistory();
+                renderHistory(history);
+                alert('MT5 connected successfully.');
+            } else {
+                alert('MT5 connect failed: ' + (payload.message || 'Unknown'));
+            }
+        }
+
+        async function disconnectMt5(){
+            const res = await fetch('/api/mt5/disconnect', {method:'POST', headers:{'Content-Type':'application/json','X-CSRF-Token':csrftoken}, body: JSON.stringify({})});
+            const payload = await res.json();
+            if(payload.ok){
+                const summary = await fetchSummary();
+                updateSummaryUI(summary);
+                renderPositions([]);
+                renderHistory([]);
+                alert('MT5 disconnected.');
+            } else {
+                alert('MT5 disconnect failed: ' + (payload.message || 'Unknown'));
+            }
+        }
+
+        document.getElementById('mt5-connect-btn').addEventListener('click', connectMt5);
+        document.getElementById('mt5-disconnect-btn').addEventListener('click', disconnectMt5);
+
+        // initialize on page load
+        (async function(){
+            const summary = await fetchSummary();
+            updateSummaryUI(summary);
+            const positions = await fetchPositions();
+            renderPositions(positions);
+            const history = await fetchHistory();
+            renderHistory(history);
+        })();
+    })();
+</script>
+{% endblock %}

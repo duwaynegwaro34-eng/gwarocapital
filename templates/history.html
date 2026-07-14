@@ -1,0 +1,81 @@
+{% extends "dashboard.html" %}
+
+{% block title %}History | Gwaro Capital{% endblock %}
+
+{% block content %}
+<section class="hero-strip">
+    <div class="hero-copy">
+        <h3>Trading History</h3>
+        <p>Review past MT5 trades, analyze performance, and export detailed history for further review.</p>
+    </div>
+    <div class="hero-pill">Audit</div>
+</section>
+
+<div class="panel" style="margin-top: 16px;">
+    <div class="panel-heading">
+        <h3><i class="fas fa-clock-rotate-left"></i> Recent Trades</h3>
+    </div>
+    <div class="trade-filter-grid">
+        <input id="trade-search" class="bot-select" type="search" placeholder="Search tickets, symbols, bots">
+        <input id="trade-start-date" class="bot-select" type="date">
+        <input id="trade-end-date" class="bot-select" type="date">
+        <input id="trade-symbol-filter" class="bot-select" type="text" placeholder="Symbol">
+        <select id="trade-bot-filter" class="bot-select">
+            <option value="">All Bots</option>
+            <option value="Hybrid Bot">Hybrid Bot</option>
+            <option value="Gwaro Dollar Printer">Gwaro Dollar Printer</option>
+            <option value="Scalper Newest">Scalper Newest</option>
+        </select>
+        <a href="#" class="cta-btn start">Apply Filter</a>
+        <a href="#" class="cta-btn stop">Export CSV</a>
+        <a href="#" class="cta-btn stop">Export Excel</a>
+    </div>
+</div>
+
+<div class="panel wide-panel" style="margin-top: 16px;">
+    <div class="panel-heading">
+        <h3><i class="fas fa-table-list"></i> Trade History Table</h3>
+        <span class="panel-badge">Latest 50 Trades</span>
+    </div>
+    <div class="table-scroll">
+        <table class="positions-table trade-history-table">
+            <thead>
+                <tr>
+                    <th>Ticket</th>
+                    <th>Symbol</th>
+                    <th>Type</th>
+                    <th>Lot Size</th>
+                    <th>Entry Price</th>
+                    <th>Exit Price</th>
+                    <th>P/L</th>
+                    <th>Open Time</th>
+                    <th>Close Time</th>
+                    <th>Bot</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if history %}
+                    {% for trade in history %}
+                    <tr>
+                        <td>{{ trade.ticket }}</td>
+                        <td>{{ trade.symbol }}</td>
+                        <td>{{ trade.type }}</td>
+                        <td>{{ trade.volume }}</td>
+                        <td>{{ trade.open_price }}</td>
+                        <td>{{ trade.close_price }}</td>
+                        <td>{{ trade.profit }}</td>
+                        <td>{{ trade.open_time }}</td>
+                        <td>{{ trade.close_time }}</td>
+                        <td>{{ trade.strategy_bot }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="10">No trade history available.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

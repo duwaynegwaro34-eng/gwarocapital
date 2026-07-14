@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Admin Dashboard | Gwaro Capital</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+    <div class="app-shell">
+        <main class="main-panel" style="margin-left:0;">
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">Admin Console</p>
+                    <h2>Production Monitoring and Control</h2>
+                </div>
+                <a href="{{ url_for('dashboard') }}" class="cta-btn start" style="text-decoration:none;">Back to Dashboard</a>
+            </header>
+
+            <section class="stats-grid">
+                <article class="stat-card"><div><p>Total Users</p><h3>{{ metrics.total_users }}</h3></div></article>
+                <article class="stat-card"><div><p>Active Bots</p><h3>{{ metrics.active_bots }}</h3></div></article>
+                <article class="stat-card"><div><p>Active Subscriptions</p><h3>{{ metrics.active_subscriptions }}</h3></div></article>
+                <article class="stat-card"><div><p>Revenue (USD)</p><h3>{{ '%.2f'|format(metrics.revenue_summary.total) }}</h3></div></article>
+            </section>
+
+            <section class="content-grid">
+                <div class="panel">
+                    <div class="panel-heading"><h3>System Health</h3></div>
+                    <div class="mini-card"><p>Status</p><h4>{{ metrics.system_health.status }}</h4></div>
+                    <div class="mini-card" style="margin-top:10px;"><p>Database</p><h4>{{ 'OK' if metrics.system_health.database.ok else 'ERROR' }}</h4></div>
+                    <div class="mini-card" style="margin-top:10px;"><p>MT5 Connection</p><h4>{{ 'Connected' if metrics.system_health.mt5.connected else 'Disconnected' }}</h4></div>
+                </div>
+
+                <div class="panel wide-panel">
+                    <div class="panel-heading"><h3>License Management</h3></div>
+                    <table class="positions-table">
+                        <thead>
+                            <tr><th>ID</th><th>User</th><th>License Key</th><th>MT5</th><th>Status</th><th>Action</th></tr>
+                        </thead>
+                        <tbody>
+                            {% for row in licenses %}
+                            <tr>
+                                <td>{{ row.id }}</td>
+                                <td>{{ row.user_id }}</td>
+                                <td>{{ row.license_key }}</td>
+                                <td>{{ row.mt5_account }}</td>
+                                <td>{{ row.status }}</td>
+                                <td>
+                                    <button data-license="{{ row.id }}" data-status="ACTIVE" class="license-action">Activate</button>
+                                    <button data-license="{{ row.id }}" data-status="INACTIVE" class="license-action">Deactivate</button>
+                                    <button data-license="{{ row.id }}" data-status="REVOKED" class="license-action">Revoke</button>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr><td colspan="6">No licenses available.</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="panel wide-panel">
+                    <div class="panel-heading"><h3>User Management</h3></div>
+                    <table class="positions-table">
+                        <thead>
+                            <tr><th>ID</th><th>Username</th><th>Email</th><th>MT5</th><th>Admin</th><th>Action</th></tr>
+                        </thead>
+                        <tbody>
+                            {% for row in recent_users %}
+                            <tr>
+                                <td>{{ row.id }}</td>
+                                <td>{{ row.username }}</td>
+                                <td>{{ row.email }}</td>
+                                <td>{{ row.mt5_account or '--' }}</td>
+                                <td>{{ 'Yes' if is_admin_user(row) else 'No' }}</td>
+                                <td>
+                                    <button data-user="{{ row.id }}" data-admin="1" class="user-role-action">Grant Admin</button>
+                                    <button data-user="{{ row.id }}" data-admin="0" class="user-role-action">Remove Admin</button>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr><td colspan="6">No users available.</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="panel wide-panel">
+                    <div class="panel-heading"><h3>Audit Log</h3></div>
+                    <table class="positions-table">
+                        <thead>
+                            <tr><th>Time</th><th>User</th><th>Action</th><th>Target</th><th>IP</th><th>Details</th></tr>
+                        </thead>
+                        <tbody>
+                            {% for row in audits %}
+                            <tr>
+                                <td>{{ row.created_at.isoformat() }}</td>
+                                <td>{{ row.user_id or '--' }}</td>
+                                <td>{{ row.action }}</td>
+                                <td>{{ row.target or '--' }}</td>
+                                <td>{{ row.ip_address or '--' }}</td>
+                                <td>{{ row.details or '--' }}</td>
+                            </tr>
+                            {% else %}
+                            <tr><td colspan="6">No audit records.</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function token() {
+            const n = document.querySelector('meta[name="csrf-token"]');
+            return n ? n.content : "";
+        }
+
+        async function updateLicenseStatus(licenseId, status) {
+            await fetch(`/api/admin/licenses/${licenseId}/status`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "X-CSRF-Token": token() },
+                body: JSON.stringify({ status })
+            });
+            window.location.reload();
+        }
+
+        async function updateUserRole(userId, isAdmin) {
+            await fetch(`/api/admin/users/${userId}/admin`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "X-CSRF-Token": token() },
+                body: JSON.stringify({ is_admin: !!isAdmin })
+            });
+            window.location.reload();
+        }
+
+        document.querySelectorAll(".license-action").forEach((button) => {
+            button.addEventListener("click", () => {
+                updateLicenseStatus(button.dataset.license, button.dataset.status);
+            });
+        });
+
+        document.querySelectorAll(".user-role-action").forEach((button) => {
+            button.addEventListener("click", () => {
+                updateUserRole(button.dataset.user, Number(button.dataset.admin) === 1);
+            });
+        });
+    </script>
+</body>
+</html>

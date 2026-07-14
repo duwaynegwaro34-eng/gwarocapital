@@ -1,0 +1,2194 @@
+﻿python.exe : test_dashboard_requires_authentication 
+(test_auth.AuthFlowTests.test_dashboard_requires_authentication) ... ok
+At line:1 char:1
++ & "C:\Users\Deca\AppData\Local\Programs\Python\Python313\python.exe"  ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_dashboard_...ication) ... ok 
+   :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+test_duplicate_registration_shows_friendly_message 
+(test_auth.AuthFlowTests.test_duplicate_registration_shows_friendly_message) 
+... C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages\sql
+alchemy\sql\schema.py:3623: DeprecationWarning: datetime.datetime.utcnow() is 
+deprecated and scheduled for removal in a future version. Use timezone-aware 
+objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+ok
+test_mt5_summary_endpoint_reports_connection_state 
+(test_auth.AuthFlowTests.test_mt5_summary_endpoint_reports_connection_state) 
+... ok
+test_register_login_and_logout 
+(test_auth.AuthFlowTests.test_register_login_and_logout) ... 
+C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py:204: LegacyAPIWarning: The 
+Query.get() method is considered legacy as of the 1.x series of SQLAlchemy and 
+becomes a legacy construct in 2.0. The method is now available as 
+Session.get() (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: 
+https://sqlalche.me/e/b8d9)
+  return User.query.get(int(user_id))
+ok
+test_activity_log_and_legacy_bot_status_route (test_bot_manager_api.BotManagerA
+piTests.test_activity_log_and_legacy_bot_status_route) ... ok
+test_bot_select_and_start_stop 
+(test_bot_manager_api.BotManagerApiTests.test_bot_select_and_start_stop) ... ok
+test_bot_status_endpoint 
+(test_bot_manager_api.BotManagerApiTests.test_bot_status_endpoint) ... ok
+test_stop_only_selected_bot_guard 
+(test_bot_manager_api.BotManagerApiTests.test_stop_only_selected_bot_guard) 
+... ok
+test_email_reset_link_still_works_as_alternative (test_forgot_password.ForgotPa
+sswordTests.test_email_reset_link_still_works_as_alternative) ... ERROR
+test_forgot_password_request_creates_token_and_sends_email (test_forgot_passwor
+d.ForgotPasswordTests.test_forgot_password_request_creates_token_and_sends_emai
+l) ... FAIL
+test_forgot_password_shows_error_when_email_send_fails (test_forgot_password.Fo
+rgotPasswordTests.test_forgot_password_shows_error_when_email_send_fails) ... 
+[2026-07-11 12:57:43,565] ERROR in app: Failed to send password reset email
+Traceback (most recent call last):
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py", line 494, in 
+send_password_reset_email
+    with smtp_class(
+         ~~~~~~~~~~^
+        app_settings.smtp_host,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        app_settings.smtp_port,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        timeout=app_settings.smtp_timeout_seconds,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ) as smtp:
+    ^
+  File 
+"C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py", 
+line 1169, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File 
+"C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py", 
+line 1173, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File 
+"C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py", 
+line 1234, in _execute_mock_call
+    raise effect
+RuntimeError: smtp offline
+ok
+test_forgot_password_unknown_email_keeps_generic_response (test_forgot_password
+.ForgotPasswordTests.test_forgot_password_unknown_email_keeps_generic_response)
+ ... ERROR
+test_reset_password_rejects_expired_token (test_forgot_password.ForgotPasswordT
+ests.test_reset_password_rejects_expired_token) ... ERROR
+test_verify_code_rejects_expired_code (test_forgot_password.ForgotPasswordTests
+.test_verify_code_rejects_expired_code) ... ERROR
+test_verify_code_then_reset_password_updates_password_and_invalidates_token (te
+st_forgot_password.ForgotPasswordTests.test_verify_code_then_reset_password_upd
+ates_password_and_invalidates_token) ... ERROR
+test_mt5_account_status_endpoint_returns_disconnected_payload (test_mt5.MT5Endp
+ointTests.test_mt5_account_status_endpoint_returns_disconnected_payload) ... 
+ERROR
+test_mt5_status_endpoint_is_available 
+(test_mt5.MT5EndpointTests.test_mt5_status_endpoint_is_available) ... ERROR
+test_mt5_connect_endpoint_validation 
+(test_mt5_connect_api.MT5ConnectApiTests.test_mt5_connect_endpoint_validation) 
+... ok
+test_mt5_disconnect_endpoint_exists 
+(test_mt5_connect_api.MT5ConnectApiTests.test_mt5_disconnect_endpoint_exists) 
+... ok
+test_mt5_status_endpoint_exists 
+(test_mt5_connect_api.MT5ConnectApiTests.test_mt5_status_endpoint_exists) ... 
+ok
+test_logout_redirects_to_login 
+(test_navigation.NavigationTests.test_logout_redirects_to_login) ... ok
+test_sidebar_routes_render_for_authenticated_users (test_navigation.NavigationT
+ests.test_sidebar_routes_render_for_authenticated_users) ... 
+  test_sidebar_routes_render_for_authenticated_users (test_navigation.Navigatio
+nTests.test_sidebar_routes_render_for_authenticated_users) (path='/dashboard') 
+... FAIL
+  test_sidebar_routes_render_for_authenticated_users (test_navigation.Navigatio
+nTests.test_sidebar_routes_render_for_authenticated_users) 
+(path='/bot-control') ... FAIL
+  test_sidebar_routes_render_for_authenticated_users (test_navigation.Navigatio
+nTests.test_sidebar_routes_render_for_authenticated_users) (path='/markets') 
+... FAIL
+  test_sidebar_routes_render_for_authenticated_users (test_navigation.Navigatio
+nTests.test_sidebar_routes_render_for_authenticated_users) 
+(path='/ai-signals') ... FAIL
+  test_sidebar_routes_render_for_authenticated_users (test_navigation.Navigatio
+nTests.test_sidebar_routes_render_for_authenticated_users) (path='/mt5') ... 
+FAIL
+  test_sidebar_routes_render_for_authenticated_users (test_navigation.Navigatio
+nTests.test_sidebar_routes_render_for_authenticated_users) (path='/history') 
+... FAIL
+  test_sidebar_routes_render_for_authenticated_users (test_navigation.Navigatio
+nTests.test_sidebar_routes_render_for_authenticated_users) (path='/settings') 
+... FAIL
+test_ai_analysis_endpoint_shape (test_phase7_ai_analytics.Phase7AnalyticsTests.
+test_ai_analysis_endpoint_shape) ... ERROR
+test_assistant_summary_contains_required_sections (test_phase7_ai_analytics.Pha
+se7AnalyticsTests.test_assistant_summary_contains_required_sections) ... C:\Use
+rs\Deca\OneDrive\Desktop\gwaro-capital\tests\test_phase7_ai_analytics.py:31: 
+DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for 
+removal in a future version. Use timezone-aware objects to represent datetimes 
+in UTC: datetime.datetime.now(datetime.UTC).
+  now = datetime.utcnow()
+FAIL
+test_performance_summary_endpoint_contains_metrics (test_phase7_ai_analytics.Ph
+ase7AnalyticsTests.test_performance_summary_endpoint_contains_metrics) ... 
+ERROR
+test_risk_summary_endpoint_shape (test_phase7_ai_analytics.Phase7AnalyticsTests
+.test_risk_summary_endpoint_shape) ... ok
+test_trading_journal_filter_by_bot (test_phase7_ai_analytics.Phase7AnalyticsTes
+ts.test_trading_journal_filter_by_bot) ... ok
+test_admin_dashboard_and_metrics (test_phase8_subscription_admin.Phase8Subscrip
+tionAdminTests.test_admin_dashboard_and_metrics) ... ok
+test_admin_license_management_endpoints (test_phase8_subscription_admin.Phase8S
+ubscriptionAdminTests.test_admin_license_management_endpoints) ... FAIL
+test_health_endpoint_available (test_phase8_subscription_admin.Phase8Subscripti
+onAdminTests.test_health_endpoint_available) ... ERROR
+test_license_validation_endpoint (test_phase8_subscription_admin.Phase8Subscrip
+tionAdminTests.test_license_validation_endpoint) ... 
+C:\Users\Deca\OneDrive\Desktop\gwaro-capital\services\payment_service.py:64: 
+DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for 
+removal in a future version. Use timezone-aware objects to represent datetimes 
+in UTC: datetime.datetime.now(datetime.UTC).
+  "created_at": datetime.utcnow().isoformat(),
+ERROR
+test_payment_history_endpoint (test_phase8_subscription_admin.Phase8Subscriptio
+nAdminTests.test_payment_history_endpoint) ... ok
+test_subscription_upgrade_and_cancel_flow (test_phase8_subscription_admin.Phase
+8SubscriptionAdminTests.test_subscription_upgrade_and_cancel_flow) ... ERROR
+test_chart_and_trade_history_apis 
+(test_phase9_analytics.Phase9AnalyticsTests.test_chart_and_trade_history_apis) 
+... C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_phase9_analytics.py
+:31: DeprecationWarning: datetime.datetime.utcnow() is deprecated and 
+scheduled for removal in a future version. Use timezone-aware objects to 
+represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  now = datetime.utcnow()
+ok
+test_dashboard_and_history_pages_render (test_phase9_analytics.Phase9AnalyticsT
+ests.test_dashboard_and_history_pages_render) ... ok
+test_dashboard_summary_api_contains_widgets (test_phase9_analytics.Phase9Analyt
+icsTests.test_dashboard_summary_api_contains_widgets) ... ERROR
+test_notifications_api_available 
+(test_phase9_analytics.Phase9AnalyticsTests.test_notifications_api_available) 
+... ERROR
+test_performance_and_bot_statistics_apis (test_phase9_analytics.Phase9Analytics
+Tests.test_performance_and_bot_statistics_apis) ... ERROR
+test_trade_history_exports 
+(test_phase9_analytics.Phase9AnalyticsTests.test_trade_history_exports) ... ok
+test_trading_engine_emits_trade_open_and_close_events (test_trading_engine.Trad
+ingEngineTests.test_trading_engine_emits_trade_open_and_close_events) ... ok
+test_trading_engine_sets_error_when_mt5_unavailable (test_trading_engine.Tradin
+gEngineTests.test_trading_engine_sets_error_when_mt5_unavailable) ... ok
+
+======================================================================
+ERROR: test_email_reset_link_still_works_as_alternative (test_forgot_password.F
+orgotPasswordTests.test_email_reset_link_still_works_as_alternative)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File 
+"C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py", 
+line 1432, in patched
+    return func(*newargs, **newkeywargs)
+  File 
+"C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_forgot_password.py", 
+line 189, in test_email_reset_link_still_works_as_alternative
+    response = self.client.post(
+        f"/reset-password/{token}",
+    ...<4 lines>...
+        follow_redirects=True,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 1167, in post
+    return self.open(*args, **kw)
+           ~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\testing.py", line 235, in open
+    response = super().open(
+        request,
+        buffered=buffered,
+        follow_redirects=follow_redirects,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 1116, in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 988, in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 1264, in run_wsgi_app
+    app_rv = app(environ, start_response)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 1536, in __call__
+    return self.wsgi_app(environ, start_response)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 1514, in wsgi_app
+    response = self.handle_exception(e)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  
+# type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py", line 2408, in 
+reset_password
+    if not reset_token or reset_token.used or reset_token.expires_at < 
+_now_utc():
+                                              
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+
+======================================================================
+ERROR: test_forgot_password_unknown_email_keeps_generic_response (test_forgot_p
+assword.ForgotPasswordTests.test_forgot_password_unknown_email_keeps_generic_re
+sponse)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: user.email
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File 
+"C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_forgot_password.py", 
+line 77, in setUp
+    app_module.db.session.commit()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\scoping.py", line 596, in commit
+    return self._proxied.commit()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        insert,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+        statement,
+        params,
+        execution_options=execution_options,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint 
+failed: user.email
+[SQL: INSERT INTO user (username, email, password, mt5_account, mt5_server, 
+mt5_name, mt5_connected) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('resetter', 'resetter@example.com', 
+'$2b$12$zraX9RO5ueO7rByLimOrouOWWbRX57iORBcYAAg1tQ.HWWzfMHJQO', None, None, 
+None, 0)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+
+======================================================================
+ERROR: test_reset_password_rejects_expired_token (test_forgot_password.ForgotPa
+sswordTests.test_reset_password_rejects_expired_token)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: user
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File 
+"C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_forgot_password.py", 
+line 77, in setUp
+    app_module.db.session.commit()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\scoping.py", line 596, in commit
+    return self._proxied.commit()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        insert,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+        statement,
+        params,
+        execution_options=execution_options,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: user
+[SQL: INSERT INTO user (username, email, password, mt5_account, mt5_server, 
+mt5_name, mt5_connected) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('resetter', 'resetter@example.com', 
+'$2b$12$4mgg93WP0KvLe3kIfoLZNu1jzWhnrbEgGP1XtNZhJ6dqdnx3/EGJm', None, None, 
+None, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+======================================================================
+ERROR: test_verify_code_rejects_expired_code (test_forgot_password.ForgotPasswo
+rdTests.test_verify_code_rejects_expired_code)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: table user already exists
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File 
+"C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_forgot_password.py", 
+line 70, in setUp
+    app_module.db.create_all()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask_sqlalchemy\extension.py", line 900, in create_all
+    self._call_for_binds(bind_key, "create_all")
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask_sqlalchemy\extension.py", line 881, in _call_for_binds
+    getattr(metadata, op_name)(bind=engine)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\schema.py", line 5930, in create_all
+    bind._run_ddl_visitor(
+    ~~~~~~~~~~~~~~~~~~~~~^
+        ddl.SchemaGenerator, self, checkfirst=checkfirst, tables=tables
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 3270, in _run_ddl_visitor
+    conn._run_ddl_visitor(visitorcallable, element, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 2469, in _run_ddl_visitor
+    ).traverse_single(element)
+      ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\visitors.py", line 661, in traverse_single
+    return meth(obj, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\ddl.py", line 985, in visit_metadata
+    self.traverse_single(
+    ~~~~~~~~~~~~~~~~~~~~^
+        table,
+        ^^^^^^
+    ...<2 lines>...
+        _is_metadata_operation=True,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\visitors.py", line 661, in traverse_single
+    return meth(obj, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\ddl.py", line 1023, in visit_table
+    )._invoke_with(self.connection)
+      ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\ddl.py", line 322, in _invoke_with
+    return bind.execute(self)
+           ~~~~~~~~~~~~^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\ddl.py", line 188, in _execute_on_connection
+    return connection._execute_ddl(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1532, in _execute_ddl
+    ret = self._execute_context(
+        dialect,
+    ...<4 lines>...
+        compiled,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) table user already 
+exists
+[SQL: 
+CREATE TABLE user (
+	id INTEGER NOT NULL, 
+	username VARCHAR(100) NOT NULL, 
+	email VARCHAR(120) NOT NULL, 
+	password VARCHAR(200) NOT NULL, 
+	mt5_account VARCHAR(50), 
+	mt5_server VARCHAR(100), 
+	mt5_name VARCHAR(100), 
+	mt5_connected BOOLEAN, 
+	PRIMARY KEY (id), 
+	UNIQUE (email)
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+======================================================================
+ERROR: 
+test_verify_code_then_reset_password_updates_password_and_invalidates_token (te
+st_forgot_password.ForgotPasswordTests.test_verify_code_then_reset_password_upd
+ates_password_and_invalidates_token)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: database is locked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File 
+"C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_forgot_password.py", 
+line 77, in setUp
+    app_module.db.session.commit()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\scoping.py", line 596, in commit
+    return self._proxied.commit()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        insert,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+        statement,
+        params,
+        execution_options=execution_options,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) database is locked
+[SQL: INSERT INTO user (username, email, password, mt5_account, mt5_server, 
+mt5_name, mt5_connected) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('resetter', 'resetter@example.com', 
+'$2b$12$Y1nPJwRdHi6Hb1/yaw2axugOBlaC0cwWQfp9lw1frjT61aEVGDRj2', None, None, 
+None, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+======================================================================
+ERROR: test_mt5_account_status_endpoint_returns_disconnected_payload (test_mt5.
+MT5EndpointTests.test_mt5_account_status_endpoint_returns_disconnected_payload)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: database is locked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_mt5.py", line 
+20, in setUp
+    app_module.db.drop_all()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask_sqlalchemy\extension.py", line 917, in drop_all
+    self._call_for_binds(bind_key, "drop_all")
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask_sqlalchemy\extension.py", line 881, in _call_for_binds
+    getattr(metadata, op_name)(bind=engine)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\schema.py", line 5958, in drop_all
+    bind._run_ddl_visitor(
+    ~~~~~~~~~~~~~~~~~~~~~^
+        ddl.SchemaDropper, self, checkfirst=checkfirst, tables=tables
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 3270, in _run_ddl_visitor
+    conn._run_ddl_visitor(visitorcallable, element, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 2469, in _run_ddl_visitor
+    ).traverse_single(element)
+      ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\visitors.py", line 661, in traverse_single
+    return meth(obj, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\ddl.py", line 1143, in visit_metadata
+    self.traverse_single(
+    ~~~~~~~~~~~~~~~~~~~~^
+        table,
+        ^^^^^^
+    ...<2 lines>...
+        _ignore_sequences=seq_coll,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\visitors.py", line 661, in traverse_single
+    return meth(obj, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\ddl.py", line 1210, in visit_table
+    DropTable(table)._invoke_with(self.connection)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\ddl.py", line 322, in _invoke_with
+    return bind.execute(self)
+           ~~~~~~~~~~~~^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\ddl.py", line 188, in _execute_on_connection
+    return connection._execute_ddl(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1532, in _execute_ddl
+    ret = self._execute_context(
+        dialect,
+    ...<4 lines>...
+        compiled,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) database is locked
+[SQL: 
+DROP TABLE payment_transaction]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+======================================================================
+ERROR: test_mt5_status_endpoint_is_available 
+(test_mt5.MT5EndpointTests.test_mt5_status_endpoint_is_available)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: table user already exists
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_mt5.py", line 
+21, in setUp
+    app_module.db.create_all()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask_sqlalchemy\extension.py", line 900, in create_all
+    self._call_for_binds(bind_key, "create_all")
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask_sqlalchemy\extension.py", line 881, in _call_for_binds
+    getattr(metadata, op_name)(bind=engine)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\schema.py", line 5930, in create_all
+    bind._run_ddl_visitor(
+    ~~~~~~~~~~~~~~~~~~~~~^
+        ddl.SchemaGenerator, self, checkfirst=checkfirst, tables=tables
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 3270, in _run_ddl_visitor
+    conn._run_ddl_visitor(visitorcallable, element, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 2469, in _run_ddl_visitor
+    ).traverse_single(element)
+      ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\visitors.py", line 661, in traverse_single
+    return meth(obj, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\ddl.py", line 985, in visit_metadata
+    self.traverse_single(
+    ~~~~~~~~~~~~~~~~~~~~^
+        table,
+        ^^^^^^
+    ...<2 lines>...
+        _is_metadata_operation=True,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\visitors.py", line 661, in traverse_single
+    return meth(obj, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\ddl.py", line 1023, in visit_table
+    )._invoke_with(self.connection)
+      ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\ddl.py", line 322, in _invoke_with
+    return bind.execute(self)
+           ~~~~~~~~~~~~^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\ddl.py", line 188, in _execute_on_connection
+    return connection._execute_ddl(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1532, in _execute_ddl
+    ret = self._execute_context(
+        dialect,
+    ...<4 lines>...
+        compiled,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) table user already 
+exists
+[SQL: 
+CREATE TABLE user (
+	id INTEGER NOT NULL, 
+	username VARCHAR(100) NOT NULL, 
+	email VARCHAR(120) NOT NULL, 
+	password VARCHAR(200) NOT NULL, 
+	mt5_account VARCHAR(50), 
+	mt5_server VARCHAR(100), 
+	mt5_name VARCHAR(100), 
+	mt5_connected BOOLEAN, 
+	PRIMARY KEY (id), 
+	UNIQUE (email)
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+======================================================================
+ERROR: test_ai_analysis_endpoint_shape 
+(test_phase7_ai_analytics.Phase7AnalyticsTests.test_ai_analysis_endpoint_shape)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: user.email
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_phase7_ai_analy
+tics.py", line 29, in setUp
+    app_module.db.session.commit()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\scoping.py", line 596, in commit
+    return self._proxied.commit()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        insert,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+        statement,
+        params,
+        execution_options=execution_options,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint 
+failed: user.email
+[SQL: INSERT INTO user (username, email, password, mt5_account, mt5_server, 
+mt5_name, mt5_connected) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('phase7', 'phase7@example.com', 
+'$2b$12$VagxUFvg.vgWToVHDUsyZe2R1nx/vxrQXbPYHgHh1GUJEaAK.fELu', None, None, 
+None, 0)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+
+======================================================================
+ERROR: test_performance_summary_endpoint_contains_metrics (test_phase7_ai_analy
+tics.Phase7AnalyticsTests.test_performance_summary_endpoint_contains_metrics)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: user.email
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_phase7_ai_analy
+tics.py", line 29, in setUp
+    app_module.db.session.commit()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\scoping.py", line 596, in commit
+    return self._proxied.commit()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        insert,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+        statement,
+        params,
+        execution_options=execution_options,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint 
+failed: user.email
+[SQL: INSERT INTO user (username, email, password, mt5_account, mt5_server, 
+mt5_name, mt5_connected) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('phase7', 'phase7@example.com', 
+'$2b$12$4ThfIRLLHHU0DzIa3/srd.q50RA457VOTYnAxkyGUCTrprOErkM3S', None, None, 
+None, 0)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+
+======================================================================
+ERROR: test_health_endpoint_available (test_phase8_subscription_admin.Phase8Sub
+scriptionAdminTests.test_health_endpoint_available)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 2127, in _exec_insertmany_context
+    dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: user.email
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_phase8_subscrip
+tion_admin.py", line 37, in setUp
+    app_module.db.session.commit()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\scoping.py", line 596, in commit
+    return self._proxied.commit()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        insert,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\orm\persistence.py", line 1144, in _emit_insert_statements
+    result = connection.execute(
+        statement, multiparams, execution_options=execution_options
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_insertmany_context(dialect, context)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 2135, in _exec_insertmany_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e,
+        ^^
+    ...<4 lines>...
+        is_sub_exec=True,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\base.py", line 2127, in _exec_insertmany_context
+    dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint 
+failed: user.email
+[SQL: INSERT INTO user (username, email, password, mt5_account, mt5_server, 
+mt5_name, mt5_connected) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id]
+[parameters: ('phase8-user', 'phase8@example.com', 
+'$2b$12$zUZdAZBpm7mL5ty.i4vnKu6BTpR.W.yblIYR4hfJ4uj1V8.06FB2q', '12345678', 
+None, None, 0)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+
+======================================================================
+ERROR: test_license_validation_endpoint (test_phase8_subscription_admin.Phase8S
+ubscriptionAdminTests.test_license_validation_endpoint)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_phase8_subscrip
+tion_admin.py", line 93, in test_license_validation_endpoint
+    self.client.post(
+    ~~~~~~~~~~~~~~~~^
+        "/api/subscription/upgrade",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        json={"plan": "MONTHLY", "provider": "card"},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        headers={"X-CSRF-Token": "ignored-in-testing"},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 1167, in post
+    return self.open(*args, **kw)
+           ~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\testing.py", line 235, in open
+    response = super().open(
+        request,
+        buffered=buffered,
+        follow_redirects=follow_redirects,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 1116, in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 988, in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 1264, in run_wsgi_app
+    app_rv = app(environ, start_response)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 1536, in __call__
+    return self.wsgi_app(environ, start_response)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 1514, in wsgi_app
+    response = self.handle_exception(e)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  
+# type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py", line 2052, in 
+subscription_upgrade_api
+    "subscription": subscription_status_payload(user),
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py", line 373, in 
+subscription_status_payload
+    subscription = get_active_subscription(user.id)
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py", line 365, in 
+get_active_subscription
+    if subscription.status == "ACTIVE" and subscription.expiry_date and 
+subscription.expiry_date < _now_utc():
+                                                                        
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+
+======================================================================
+ERROR: test_subscription_upgrade_and_cancel_flow (test_phase8_subscription_admi
+n.Phase8SubscriptionAdminTests.test_subscription_upgrade_and_cancel_flow)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_phase8_subscrip
+tion_admin.py", line 51, in test_subscription_upgrade_and_cancel_flow
+    upgrade_response = self.client.post(
+        "/api/subscription/upgrade",
+        json={"plan": "MONTHLY", "provider": "mpesa"},
+        headers={"X-CSRF-Token": "ignored-in-testing"},
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 1167, in post
+    return self.open(*args, **kw)
+           ~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\testing.py", line 235, in open
+    response = super().open(
+        request,
+        buffered=buffered,
+        follow_redirects=follow_redirects,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 1116, in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 988, in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 1264, in run_wsgi_app
+    app_rv = app(environ, start_response)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 1536, in __call__
+    return self.wsgi_app(environ, start_response)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 1514, in wsgi_app
+    response = self.handle_exception(e)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  
+# type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py", line 2052, in 
+subscription_upgrade_api
+    "subscription": subscription_status_payload(user),
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py", line 373, in 
+subscription_status_payload
+    subscription = get_active_subscription(user.id)
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py", line 365, in 
+get_active_subscription
+    if subscription.status == "ACTIVE" and subscription.expiry_date and 
+subscription.expiry_date < _now_utc():
+                                                                        
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+
+======================================================================
+ERROR: test_dashboard_summary_api_contains_widgets (test_phase9_analytics.Phase
+9AnalyticsTests.test_dashboard_summary_api_contains_widgets)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File 
+"C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_phase9_analytics.py", 
+line 72, in test_dashboard_summary_api_contains_widgets
+    response = self.client.get("/api/dashboard/summary")
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 1162, in get
+    return self.open(*args, **kw)
+           ~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\testing.py", line 235, in open
+    response = super().open(
+        request,
+        buffered=buffered,
+        follow_redirects=follow_redirects,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 1116, in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 988, in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 1264, in run_wsgi_app
+    app_rv = app(environ, start_response)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 1536, in __call__
+    return self.wsgi_app(environ, start_response)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 1514, in wsgi_app
+    response = self.handle_exception(e)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  
+# type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py", line 1889, in 
+dashboard_summary_api
+    return jsonify(get_dashboard_summary())
+                   ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py", line 1255, in 
+get_dashboard_summary
+    performance = get_analytics_performance_summary()
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py", line 1188, in 
+get_analytics_performance_summary
+    "today_profit_loss": _compute_timeframe_profit(entries, start_of_day, 
+None),
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py", line 1083, in 
+_compute_timeframe_profit
+    if start_dt and (not close_time or close_time < start_dt):
+                                       ^^^^^^^^^^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+
+======================================================================
+ERROR: test_notifications_api_available 
+(test_phase9_analytics.Phase9AnalyticsTests.test_notifications_api_available)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File 
+"C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_phase9_analytics.py", 
+line 146, in test_notifications_api_available
+    response = self.client.get("/api/dashboard/notifications")
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 1162, in get
+    return self.open(*args, **kw)
+           ~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\testing.py", line 235, in open
+    response = super().open(
+        request,
+        buffered=buffered,
+        follow_redirects=follow_redirects,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 1116, in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 988, in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 1264, in run_wsgi_app
+    app_rv = app(environ, start_response)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 1536, in __call__
+    return self.wsgi_app(environ, start_response)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 1514, in wsgi_app
+    response = self.handle_exception(e)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  
+# type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py", line 1895, in 
+dashboard_notifications_api
+    return jsonify({"items": get_smart_notifications()})
+                             ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py", line 1302, in 
+get_smart_notifications
+    performance = get_analytics_performance_summary()
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py", line 1188, in 
+get_analytics_performance_summary
+    "today_profit_loss": _compute_timeframe_profit(entries, start_of_day, 
+None),
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py", line 1083, in 
+_compute_timeframe_profit
+    if start_dt and (not close_time or close_time < start_dt):
+                                       ^^^^^^^^^^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+
+======================================================================
+ERROR: test_performance_and_bot_statistics_apis (test_phase9_analytics.Phase9An
+alyticsTests.test_performance_and_bot_statistics_apis)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File 
+"C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_phase9_analytics.py", 
+line 91, in test_performance_and_bot_statistics_apis
+    perf_response = self.client.get("/api/dashboard/performance-summary")
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 1162, in get
+    return self.open(*args, **kw)
+           ~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\testing.py", line 235, in open
+    response = super().open(
+        request,
+        buffered=buffered,
+        follow_redirects=follow_redirects,
+    )
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 1116, in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 988, in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\werkzeug\test.py", line 1264, in run_wsgi_app
+    app_rv = app(environ, start_response)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 1536, in __call__
+    return self.wsgi_app(environ, start_response)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 1514, in wsgi_app
+    response = self.handle_exception(e)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  
+# type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\site-packages
+\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py", line 1849, in 
+dashboard_performance_summary_api
+    return jsonify(get_analytics_performance_summary())
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py", line 1188, in 
+get_analytics_performance_summary
+    "today_profit_loss": _compute_timeframe_profit(entries, start_of_day, 
+None),
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\app.py", line 1083, in 
+_compute_timeframe_profit
+    if start_dt and (not close_time or close_time < start_dt):
+                                       ^^^^^^^^^^^^^^^^^^^^^
+TypeError: can't compare offset-naive and offset-aware datetimes
+
+======================================================================
+FAIL: test_forgot_password_request_creates_token_and_sends_email (test_forgot_p
+assword.ForgotPasswordTests.test_forgot_password_request_creates_token_and_send
+s_email)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File 
+"C:\Users\Deca\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py", 
+line 1432, in patched
+    return func(*newargs, **newkeywargs)
+  File 
+"C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_forgot_password.py", 
+line 116, in test_forgot_password_request_creates_token_and_sends_email
+    self.assertIn(record.token, email_message.as_string())
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'yL0FsBg_BqAICQW-Z5VtH3p1K-3qyZlhvMhMs69uquY' not found in 
+'Subject: Gwaro Capital Password Reset\nFrom: GWARO Capital 
+<noreply@example.com>\nTo: resetter@example.com\nMIME-Version: 
+1.0\nContent-Type: multipart/alternative;\n boundary="===============1046302913
+403272109=="\n\n--===============1046302913403272109==\nContent-Type: 
+text/plain; charset="utf-8"\nContent-Transfer-Encoding: 
+quoted-printable\n\nGWARO Capital Password Reset\n\nHello resetter,\n\nWe 
+received a request to reset your GWARO Capital password.\n\nVerification code: 
+821931\nReset link: http://localhost/reset-password/yL0FsBg_BqAICQW-Z5VtH3p1K-3
+qyZlhv=\nMhMs69uquY\n\nThis reset link and code expire in 30 minutes.\n\nIf 
+you did not request a password reset, you can safely ignore this 
+email.\n\n--===============1046302913403272109==\nContent-Type: text/html; 
+charset="utf-8"\nContent-Transfer-Encoding: quoted-printable\nMIME-Version: 
+1.0\n\n<!DOCTYPE html>\n<html lang=3D"en">\n<head>\n    <meta 
+charset=3D"UTF-8">\n    <meta name=3D"viewport" 
+content=3D"width=3Ddevice-width, initial-scale=3D=\n1.0">\n    <title>GWARO 
+Capital Password Reset</title>\n</head>\n<body style=3D"margin:0;padding:24px;b
+ackground:#0b1220;color:#e5ecf6;font-fa=\nmily:Arial,sans-serif;">\n    <div 
+style=3D"max-width:640px;margin:0 auto;background:#111a2e;border:1px=\n solid 
+#22314f;border-radius:16px;padding:32px;">\n        <div style=3D"font-size:12p
+x;letter-spacing:0.24em;text-transform:upp=\nercase;color:#8aa0c8;margin-bottom
+:16px;">GWARO Capital</div>\n        <h1 style=3D"margin:0 0 
+16px;font-size:28px;line-height:1.2;color:#f8=\nfbff;">Reset Your 
+Password</h1>\n        <p style=3D"margin:0 0 
+16px;line-height:1.6;color:#d0dbef;">Hello res=\netter,</p>\n        <p 
+style=3D"margin:0 0 16px;line-height:1.6;color:#d0dbef;">We receiv=\ned a 
+request to reset your GWARO Capital password. Use the verification code 
+=\nbelow or open the secure reset link.</p>\n        <div style=3D"margin:24px 
+0;padding:16px;border-radius:12px;backgroun=\nd:#0b1220;border:1px solid 
+#22314f;">\n            <div style=3D"font-size:12px;text-transform:uppercase;l
+etter-spac=\ning:0.12em;color:#8aa0c8;margin-bottom:8px;">Verification 
+Code</div>\n            <div style=3D"font-size:32px;font-weight:700;letter-spa
+cing:0.24e=\nm;color:#f8fbff;">821931</div>\n        </div>\n        <p 
+style=3D"margin:0 0 24px;line-height:1.6;color:#d0dbef;">This rese=\nt code 
+and link expire in 30 minutes.</p>\n        <p style=3D"margin:0 0 24px;">\n   
+         <a href=3D"http://localhost/reset-password/yL0FsBg_BqAICQW-Z5VtH3=\np1
+K-3qyZlhvMhMs69uquY" style=3D"display:inline-block;padding:14px 24px;border=\n-
+radius:999px;background:#d5a94f;color:#111a2e;font-weight:700;text-decoratio=\n
+n:none;">Reset Password</a>\n        </p>\n        <p style=3D"margin:0 0 
+8px;line-height:1.6;color:#d0dbef;word-break:b=\nreak-all;">If the button does 
+not work, use this link:</p>\n        <p style=3D"margin:0 0 
+24px;line-height:1.6;word-break:break-all;"><a=\n href=3D"http://localhost/rese
+t-password/yL0FsBg_BqAICQW-Z5VtH3p1K-3qyZlhvMhM=\ns69uquY" style=3D"color:#9fc2
+ff;">http://localhost/reset-password/yL0FsBg_BqA=\nICQW-Z5VtH3p1K-3qyZlhvMhMs69
+uquY</a></p>\n        <p style=3D"margin:0;line-height:1.6;color:#8aa0c8;">If 
+you did not r=\nequest this password reset, you can safely ignore this 
+email.</p>\n    
+</div>\n</body>\n</html>\n\n--===============1046302913403272109==--\n'
+
+======================================================================
+FAIL: test_sidebar_routes_render_for_authenticated_users (test_navigation.Navig
+ationTests.test_sidebar_routes_render_for_authenticated_users) 
+(path='/dashboard')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File 
+"C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_navigation.py", line 
+53, in test_sidebar_routes_render_for_authenticated_users
+    self.assertEqual(response.status_code, 200)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 302 != 200
+
+======================================================================
+FAIL: test_sidebar_routes_render_for_authenticated_users (test_navigation.Navig
+ationTests.test_sidebar_routes_render_for_authenticated_users) 
+(path='/bot-control')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File 
+"C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_navigation.py", line 
+53, in test_sidebar_routes_render_for_authenticated_users
+    self.assertEqual(response.status_code, 200)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 302 != 200
+
+======================================================================
+FAIL: test_sidebar_routes_render_for_authenticated_users (test_navigation.Navig
+ationTests.test_sidebar_routes_render_for_authenticated_users) 
+(path='/markets')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File 
+"C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_navigation.py", line 
+53, in test_sidebar_routes_render_for_authenticated_users
+    self.assertEqual(response.status_code, 200)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 302 != 200
+
+======================================================================
+FAIL: test_sidebar_routes_render_for_authenticated_users (test_navigation.Navig
+ationTests.test_sidebar_routes_render_for_authenticated_users) 
+(path='/ai-signals')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File 
+"C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_navigation.py", line 
+53, in test_sidebar_routes_render_for_authenticated_users
+    self.assertEqual(response.status_code, 200)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 302 != 200
+
+======================================================================
+FAIL: test_sidebar_routes_render_for_authenticated_users (test_navigation.Navig
+ationTests.test_sidebar_routes_render_for_authenticated_users) (path='/mt5')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File 
+"C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_navigation.py", line 
+53, in test_sidebar_routes_render_for_authenticated_users
+    self.assertEqual(response.status_code, 200)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 302 != 200
+
+======================================================================
+FAIL: test_sidebar_routes_render_for_authenticated_users (test_navigation.Navig
+ationTests.test_sidebar_routes_render_for_authenticated_users) 
+(path='/history')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File 
+"C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_navigation.py", line 
+53, in test_sidebar_routes_render_for_authenticated_users
+    self.assertEqual(response.status_code, 200)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 302 != 200
+
+======================================================================
+FAIL: test_sidebar_routes_render_for_authenticated_users (test_navigation.Navig
+ationTests.test_sidebar_routes_render_for_authenticated_users) 
+(path='/settings')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File 
+"C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_navigation.py", line 
+53, in test_sidebar_routes_render_for_authenticated_users
+    self.assertEqual(response.status_code, 200)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 302 != 200
+
+======================================================================
+FAIL: test_assistant_summary_contains_required_sections (test_phase7_ai_analyti
+cs.Phase7AnalyticsTests.test_assistant_summary_contains_required_sections)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_phase7_ai_analy
+tics.py", line 108, in test_assistant_summary_contains_required_sections
+    self.assertEqual(response.status_code, 200)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 302 != 200
+
+======================================================================
+FAIL: test_admin_license_management_endpoints (test_phase8_subscription_admin.P
+hase8SubscriptionAdminTests.test_admin_license_management_endpoints)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Deca\OneDrive\Desktop\gwaro-capital\tests\test_phase8_subscrip
+tion_admin.py", line 131, in test_admin_license_management_endpoints
+    self.assertEqual(list_response.status_code, 200)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 302 != 200
+
+----------------------------------------------------------------------
+Ran 41 tests in 612.045s
+
+FAILED (failures=10, errors=15)
+<sys>:0: ResourceWarning: unclosed database in <sqlite3.Connection object at 
+0x00000244B5B07970>

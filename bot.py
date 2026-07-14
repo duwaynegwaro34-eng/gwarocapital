@@ -33,6 +33,10 @@ session_high = 0.0
 session_low = 999999.0
 
 session_captured = False
+ACTIVE_EXECUTION_BOT = None
+ACTIVE_EXECUTION_PATH = None
+ACTIVE_EXECUTION_SYMBOL = None
+
 
 def reset_trading_day():
 
@@ -103,6 +107,28 @@ def capture_session():
         print(f"Low : {session_low}")
 
 running = False
+
+
+def configure_execution(bot_id, bot_path=None, chart_symbol=None):
+    global ACTIVE_EXECUTION_BOT, ACTIVE_EXECUTION_PATH, ACTIVE_EXECUTION_SYMBOL
+    ACTIVE_EXECUTION_BOT = bot_id
+    ACTIVE_EXECUTION_PATH = bot_path
+    ACTIVE_EXECUTION_SYMBOL = chart_symbol or TRADE_SYMBOL
+    print(f"Configured execution for {bot_id} at {bot_path or 'unknown'} on {ACTIVE_EXECUTION_SYMBOL}")
+
+
+def activate_execution(bot_id, bot_path=None, chart_symbol=None):
+    configure_execution(bot_id, bot_path=bot_path, chart_symbol=chart_symbol)
+    print(f"Activated expert {bot_id} on {ACTIVE_EXECUTION_SYMBOL}")
+
+
+def deactivate_execution(bot_id, bot_path=None, chart_symbol=None):
+    global ACTIVE_EXECUTION_BOT, ACTIVE_EXECUTION_PATH, ACTIVE_EXECUTION_SYMBOL
+    ACTIVE_EXECUTION_BOT = None
+    ACTIVE_EXECUTION_PATH = None
+    ACTIVE_EXECUTION_SYMBOL = None
+    print(f"Deactivated expert {bot_id}")
+
 
 def detect_bos():
 
