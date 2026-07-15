@@ -1600,9 +1600,14 @@ def _default_mt5_summary(status="Disconnected"):
 def get_mt5_terminal_status():
     # Return bridge-backed connection status; if bridge not configured, show offline
     status = mt5_manager.connection_status()
-    if not status.get("connected") and not mt5_manager.initialize_client():
-        return {"connected": False, "status": "MT5 Bridge Offline", "reason": "MT5 Bridge not configured"}
-    return status
+    bridge_health = mt5_manager._bridge.health() if hasattr(mt5_manager, "_bridge") else {"ok": False, "status": "misconfigured", "message": "No bridge client configured"}
+    if not status.get("connected"):
+        if bridge_health.get("status") == "misconfigured":
+            return {"connected": False, "status": "MT5 Bridge Misconfigured", "reason": bridge_health.get("message", "MT5 Bridge not configured"), "bridge": bridge_health}
+        if bridge_health.get("status") == "unreachable":
+            return {"connected": False, "status": "MT5 Bridge Unreachable", "reason": bridge_health.get("message", "MT5 Bridge could not be reached"), "bridge": bridge_health}
+        return {"connected": False, "status": "MT5 Bridge Offline", "reason": bridge_health.get("message", "MT5 Bridge is offline"), "bridge": bridge_health}
+    return {**status, "bridge": bridge_health}
 
 
 def refresh_mt5_bridge_state():
@@ -1863,6 +1868,11 @@ def mt5_connect_api():
     password = payload.get("password", "")
     server = payload.get("server", "")
 
+    bridge_health = mt5_manager._bridge.health() if hasattr(mt5_manager, "_bridge") else {"ok": False, "status": "misconfigured", "message": "No bridge client configured"}
+    if not bridge_health.get("ok"):
+        result = {"ok": False, "message": bridge_health.get("message") or "MT5 bridge unavailable"}
+        return jsonify({**result, "status": bridge_health, "login": login, "server": server})
+
     initialized = bool(mt5_manager.initialize_client())
     result = {
         "ok": initialized,
@@ -2034,7 +2044,9 @@ def assistant_summary_api():
 @app.route("/health")
 def health_check():
     health = get_system_health()
-    code = 200 if health.get("status") == "ok" else 503
+    bridge_health = mt5_manager._bridge.health() if hasattr(mt5_manager, "_bridge") else {"ok": False, "status": "misconfigured", "message": "No bridge client configured"}
+    health["mt5_bridge"] = bridge_health
+    code = 200 if health.get("status") == "ok" and bridge_health.get("ok") else 503
     return jsonify(health), code
 
 

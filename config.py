@@ -48,6 +48,13 @@ class Settings:
 				"gwaro_mt5_bridge",
 			),
 		)
+		self.mt5_bridge_url = os.getenv("MT5_BRIDGE_URL", "").strip()
+		self.mt5_bridge_host = os.getenv("MT5_BRIDGE_HOST", "").strip()
+		self.mt5_bridge_port = os.getenv("MT5_BRIDGE_PORT", "5001").strip()
+		self.mt5_bridge_api_key = os.getenv("MT5_BRIDGE_API_KEY", "").strip()
+		self.mt5_bridge_retries = int(os.getenv("MT5_BRIDGE_RETRIES", "3"))
+		self.mt5_bridge_timeout_seconds = float(os.getenv("MT5_BRIDGE_TIMEOUT_SECONDS", "5"))
+		self.mt5_bridge_session_ttl_seconds = int(os.getenv("MT5_BRIDGE_SESSION_TTL_SECONDS", "3600"))
 
 		self.smtp_host = os.getenv("SMTP_HOST", "smtp.gmail.com")
 		self.smtp_port = int(os.getenv("SMTP_PORT", "587"))

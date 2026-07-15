@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
 import threading
+from config import settings as app_settings
 from services.mt5_bridge_client import MT5BridgeClient
 
 
@@ -11,7 +12,17 @@ class MT5Manager:
     """
     def __init__(self, bridge_url=None):
         self._lock = threading.RLock()
-        self._bridge = MT5BridgeClient(base_url=bridge_url)
+        resolved_url = bridge_url or app_settings.mt5_bridge_url or ""
+        if not resolved_url:
+            host = app_settings.mt5_bridge_host or ""
+            port = app_settings.mt5_bridge_port or "5001"
+            if host and port:
+                resolved_url = f"http://{host}:{port}"
+        self._bridge = MT5BridgeClient(
+            base_url=resolved_url,
+            timeout=app_settings.mt5_bridge_timeout_seconds,
+            api_key=app_settings.mt5_bridge_api_key,
+        )
 
     def connection_status(self):
         try:
@@ -39,12 +50,31 @@ class MT5Manager:
             }
 
     def initialize_client(self):
-        # No local MT5 client to initialize; rely on bridge configuration
-        return self._bridge.is_configured()
+        # Health-check the bridge before attempting to connect.
+        if not self._bridge.is_configured():
+            return False
+        try:
+            health = self._bridge.health()
+            return bool(health.get("ok"))
+        except Exception:
+            return False
 
     def shutdown_client(self):
         # No local shutdown required for bridge
         return True
+
+    def connect(self, login=None, password=None, server=None, session_id=None):
+        try:
+            return self._bridge.connect(login=login, password=password, server=server, session_id=session_id)
+        except Exception as exc:
+            return {"ok": False, "status": "offline", "message": str(exc)}
+
+    def disconnect(self, session_id=None):
+        try:
+            return self._bridge.disconnect(session_id=session_id)
+        except Exception as exc:
+            return {"ok": False, "status": "offline", "message": str(exc)}
+
     def account_info(self):
         try:
             return self._bridge.account_info()
@@ -80,7 +110,17 @@ class MT5Manager:
             return self._bridge.order_send(payload)
         except Exception:
             return None
+    def start_bot(self, bot_id=None, session_id=None):
+        try:
+            return self._bridge.send_command("start", bot_id or "gwarodollarprinter", session_id=session_id)
+        except Exception as exc:
+            return {"ok": False, "status": "offline", "message": str(exc)}
 
+    def stop_bot(self, bot_id=None, session_id=None):
+        try:
+            return self._bridge.send_command("stop", bot_id or "gwarodollarprinter", session_id=session_id)
+        except Exception as exc:
+            return {"ok": False, "status": "offline", "message": str(exc)}
 
 # Default manager uses environment variable MT5_BRIDGE_URL if present
 mt5_manager = MT5Manager(bridge_url=None)

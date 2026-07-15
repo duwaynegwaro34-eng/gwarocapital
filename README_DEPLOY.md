@@ -37,7 +37,8 @@ Render deploy (recommended)
 2. Create a Render account and connect your GitHub repo.
 3. Use the existing `render.yaml` or create a new Web Service using Docker and the `Dockerfile`.
 4. In Render service settings add two secrets: `SECRET_KEY` and `DATABASE_URL` (or set them under Environment).
-5. Deploy. Render provides automatic HTTPS.
+5. Also add the MT5 bridge endpoint: `MT5_BRIDGE_URL=http://<your-windows-machine-ip>:5001`.
+6. Deploy. Render provides automatic HTTPS.
 
 GitHub push commands (run locally):
 
