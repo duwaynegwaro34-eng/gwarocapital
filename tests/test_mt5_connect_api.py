@@ -1,6 +1,7 @@
 import os
 import sys
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
@@ -42,6 +43,18 @@ class MT5ConnectApiTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         payload = response.get_json()
         self.assertIn("ok", payload)
+
+    def test_mt5_connect_endpoint_uses_manager_initialization(self):
+        with patch.object(app_module.mt5_manager, "initialize_client", return_value=True) as init_mock:
+            response = self.client.post(
+                "/api/mt5/connect",
+                json={"login": "12345", "password": "secret", "server": "broker"},
+            )
+
+        self.assertEqual(response.status_code, 200)
+        payload = response.get_json()
+        self.assertTrue(payload["ok"])
+        init_mock.assert_called_once_with()
 
 
 if __name__ == "__main__":

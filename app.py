@@ -1863,11 +1863,17 @@ def mt5_connect_api():
     password = payload.get("password", "")
     server = payload.get("server", "")
 
-    result = mt5_manager.connect(login, password, server)
-    log_audit("mt5_connect_attempt", target=str(login), details=json.dumps({"ok": bool(result.get("ok"))}))
+    initialized = bool(mt5_manager.initialize_client())
+    result = {
+        "ok": initialized,
+        "message": "MT5 bridge initialized" if initialized else "MT5 bridge unavailable",
+    }
+    log_audit("mt5_connect_attempt", target=str(login), details=json.dumps({"ok": initialized}))
     return jsonify({
         **result,
         "status": mt5_manager.connection_status(),
+        "login": login,
+        "server": server,
     })
 
 
@@ -1877,8 +1883,12 @@ def mt5_disconnect_api():
     if csrf_error:
         return csrf_error
 
-    result = mt5_manager.disconnect()
-    log_audit("mt5_disconnect", details=json.dumps({"ok": bool(result.get("ok"))}))
+    shutdown_ok = bool(mt5_manager.shutdown_client())
+    result = {
+        "ok": shutdown_ok,
+        "message": "MT5 bridge shutdown requested" if shutdown_ok else "MT5 bridge shutdown failed",
+    }
+    log_audit("mt5_disconnect", details=json.dumps({"ok": shutdown_ok}))
     return jsonify({
         **result,
         "status": mt5_manager.connection_status(),
